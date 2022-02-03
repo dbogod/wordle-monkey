@@ -6,7 +6,7 @@ import GuessedWordsList from "../components/GuessedWordsList";
 import Results from '../components/Results';
 
 const Home = () => {
-  const [confirmedLetters, setConfirmedLetters] = useState([]);
+  const [confirmedLetters, updateConfirmedLetters] = useState([]);
   const [guessedLetters, setGuessedLetters] = useState([]);
   const tabClass = 'is-tab';
   const submitHandler = e => {
@@ -39,7 +39,7 @@ const Home = () => {
       <main>
 
 
-        <section className="container py-4">
+        <section className="container mt-4">
           <div className="row">
             <div className="col">
               <h1>
@@ -58,13 +58,13 @@ const Home = () => {
             </div>
           </div>
         </section>
-        <section className="container py-4">
+        <section className="container mt-4">
 
           <form onSubmit={submitHandler}>
             <ConfirmedLetters
-              updateConfirmedLetters={setConfirmedLetters}/>
+              updateConfirmedLetters={updateConfirmedLetters}/>
             <GuessedWordsList
-              updateGuessedLetters={setGuessedLetters}/>
+              setGuessedLetters={setGuessedLetters}/>
             <button
               type="submit"
               className="d-inline-block mt-2 p-2 btn btn-primary shadow">
@@ -76,8 +76,7 @@ const Home = () => {
               Reset
             </button>
           </form>
-          <Results
-            confirmedLetters={confirmedLetters}/>
+          <Results />
         </section>
       </main>
     </>

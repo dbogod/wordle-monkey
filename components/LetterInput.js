@@ -1,6 +1,6 @@
 ﻿import { useState, useRef } from "react";
 
-const LetterInput = ({ letterInputNumber, wordRowId, editWord, hidden }) => {
+const LetterInput = ({ letterInputNumber, wordRowId, editWord, editConfirmedLetters, hidden }) => {
   const input = useRef(null);
   const [value, updateValue] = useState('');
   const labelText = `Letter ${(parseInt(letterInputNumber)).toString()}`;
@@ -25,16 +25,19 @@ const LetterInput = ({ letterInputNumber, wordRowId, editWord, hidden }) => {
       }
 
       // Update state and move the focus to the next input along
-      updateValue(input.current.value.toLowerCase());
-      const nextInputNumber = input.current.value === '' ? -1 : 1;
+      const val = input.current.value.toLowerCase();
+      updateValue(val);
+      const nextInputNumber = val === '' ? -1 : 1;
       focusNextInput(inputId, nextInputNumber);
 
-      // Update WordRow state
+      // Update guessed words list
       if (wordRowId) {
         const wordRow = input.current.closest(`#${wordRowId}`);
         const inputs = wordRow?.querySelectorAll('input');
         const string = [...inputs].map(input => input.value).filter(value => value !== '').join('');
         editWord(string);
+      } else if (editConfirmedLetters) {
+        editConfirmedLetters({ id: letterInputNumber, letter: val });
       }
     }
   };

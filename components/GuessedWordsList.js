@@ -1,14 +1,31 @@
 ﻿import { useState, useRef, useEffect } from "react";
 import WordRow from "./WordRow";
 
-const GuessedWordsList = ({ updateGuessedLetters }) => {
+const GuessedWordsList = ({ setGuessedLetters }) => {
   const errorAlert = useRef(null);
   const [wordRows, updateWordRows] = useState([{ id: 1, word: '' }]);
   const [error, setError] = useState({ type: '', msg: '' });
 
+  const updateGuessedLetters = wordRowsArr => {
+    let guessedLetters = [];
+    const completeWordRows = wordRowsArr.filter(wordRow => wordRow.word.length === 5);
+
+    if (completeWordRows.length > 0) {
+      const lettersArr = [];
+      [...completeWordRows].forEach(wordRow => {
+        [...wordRow.word.split('')].forEach(letter => lettersArr.push(letter));
+      });
+      // Remove duplicates
+      guessedLetters = [...new Set(lettersArr)];
+    }
+
+    setGuessedLetters(guessedLetters);
+  };
+
   const removeWordRow = id => {
     const editedWordRowsArr = wordRows.filter(wordRow => wordRow.id !== id);
     updateWordRows(editedWordRowsArr);
+    updateGuessedLetters(editedWordRowsArr);
   };
 
   const addWordRow = () => {
@@ -34,6 +51,7 @@ const GuessedWordsList = ({ updateGuessedLetters }) => {
       }
     })
     updateWordRows(wordRows);
+    updateGuessedLetters(wordRows);
   };
 
   useEffect(() => {

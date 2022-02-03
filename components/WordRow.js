@@ -1,11 +1,8 @@
 ﻿import LetterInput from "./LetterInput";
-import { useEffect, useState } from "react";
 
 const WordRow = ({ id, removeWordRow, editWordRow }) => {
-  const [word, updateWord] = useState('');
   const wordRowId = `word-${id}`;
   const editWord = string => {
-    updateWord(string);
     editWordRow({id, word: string});
   };
 
@@ -14,7 +11,7 @@ const WordRow = ({ id, removeWordRow, editWordRow }) => {
       <div
         id={wordRowId}
         className={`row mt-${id === 1 ? '0' : '2'}`}>
-        <div className="col d-flex justify-content-between">
+        <div className="col d-flex">
           {
             [...Array(5)].map((val, i) => (
               <LetterInput
