@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-
 import ConfirmedLetters from '../components/ConfirmedLetters';
 import GuessedWordsList from "../components/GuessedWordsList";
 import ResultsTypeSelector from '../components/ResultsTypeSelector';
@@ -17,14 +16,16 @@ import { POSSIBLE_ANSWERS } from "../components/utilities/possibleAnswers";
 const Home = () => {
   const [confirmedLetters, updateConfirmedLetters] = useState([]);
   const [guessedLetters, setGuessedLetters] = useState([]);
-  const [resultsType, setResultsType] = useState('');
   const [results, setResults] = useState([]);
+  const [resultsType, setResultsType] = useState('');
   const [error, setError] = useState('');
 
   const getDataObj = async () => {
     const hasConfirmedLetters = confirmedLetters.length > 0;
-    const hasResultsType = resultsType !== '';
+    const resultsTypeChecked = [...document.querySelectorAll('#resultsType input')].filter(radio => radio.checked === true);
+    const hasResultsType = resultsTypeChecked.length > 0;
     if (hasConfirmedLetters && hasResultsType) {
+      setError('');
       const letters = {};
       confirmedLetters.forEach((letter) => {
         letters[letter] = (letters[letter] || 0) + 1;
@@ -32,18 +33,20 @@ const Home = () => {
 
       const dataObj = {
         letters,
-        resultsType
+        resultsType: resultsTypeChecked[0].value
       };
 
       if (guessedLetters.length > 0) {
         dataObj.excLetters = guessedLetters.filter((letter) => !confirmedLetters.includes(letter));
       }
 
+      setResultsType(dataObj.resultsType);
+
       return dataObj;
     } else {
       let error = '';
       switch (true) {
-        case !hasConfirmedLetters && !resultsType:
+        case !hasConfirmedLetters && !hasResultsType:
           error =
             "Error! Check that you have entered some confirmed letters (a-z only) and select what results you like to see.";
           break;
@@ -51,7 +54,7 @@ const Home = () => {
           error =
             "Error! Check that you have only entered letters a-z and try again";
           break;
-        case !resultsType:
+        case !hasResultsType:
           error = "Error! Select what type of results you would like to see.";
           break;
       }
@@ -82,7 +85,7 @@ const Home = () => {
     incRegexString = `${incRegexString}.*`;
 
     let excRegexString = "";
-    if (excLettersArr.length) {
+    if (excLettersArr?.length) {
       excRegexString = "^[^";
       excLettersArr.forEach((letter) => {
         excRegexString = `${excRegexString}${letter}`;
@@ -234,9 +237,7 @@ const Home = () => {
             updateConfirmedLetters={updateConfirmedLetters}/>
           <GuessedWordsList
             setGuessedLetters={setGuessedLetters}/>
-          <ResultsTypeSelector
-            resultsType={resultsType}
-            setResultsType={setResultsType}/>
+          <ResultsTypeSelector />
           <div className="d-flex mt-4">
             <button
               type="submit"
@@ -256,7 +257,7 @@ const Home = () => {
             error={error}/>
         }
         {
-          results.length > 0 &&
+          results?.length > 0 &&
           <Results
             type={resultsType}
             data={results}/>

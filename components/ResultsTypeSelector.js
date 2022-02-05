@@ -1,15 +1,13 @@
-﻿const ResultsTypeSelector = ({ resultsType, setResultsType }) => {
-  const changeHandler = e => {
-    setResultsType(e.currentTarget.value);
-  };
-
+﻿const ResultsTypeSelector = () => {
   const radioButtons = [
     { label: 'Probabilities', id: 'probability' },
     { label: 'Number of words', id: 'words' }
   ];
 
   return (
-    <fieldset className="mt-5">
+    <fieldset
+      id="resultsType"
+      className="mt-5">
       <legend className="mb-0">
         <h2 className="mt-0">
           What would you like to see?
@@ -30,9 +28,7 @@
               id={id}
               type="radio"
               name="resultsType"
-              value={id}
-              checked={resultsType === id}
-              onChange={changeHandler}/>
+              value={id}/>
           </div>
         ))
       }

@@ -1,5 +1,4 @@
 ﻿const Results = ({ type, data }) => {
-
   return (
     <div
       className="mt-4"
