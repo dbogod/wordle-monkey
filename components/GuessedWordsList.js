@@ -62,10 +62,12 @@ const GuessedWordsList = ({ setGuessedLetters }) => {
 
   return (
     <>
-      <div className="row">
+      <div className="row mt-5">
         <div className="col">
-          <h2>
+          <h2 className="mt-0">
             Which words have you tried already?
+            <br/>
+            <i>(optional)</i>
           </h2>
         </div>
       </div>

@@ -1,14 +1,17 @@
-﻿import Header from "../components/Header";
-import Footer from "../components/Footer";
+﻿import Head from "next/head";
 
 const Layout = ({ children }) => {
   return (
     <>
-      <Header/>
+      <Head>
+        <title>
+          Wordle Monkey
+        </title>
+        <meta name="viewport" content="width=device-width,initial-scale=1"/>
+      </Head>
       {children}
-      <Footer/>
-    </>
+      </>
   )
-}
+};
 
 export default Layout;
