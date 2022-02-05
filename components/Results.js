@@ -10,7 +10,9 @@
       <dl>
         {
           data.map((item, i) => (
-            <div className="row">
+            <div
+              key={i}
+              className="row">
               <dt className="col-1">
                 {item[0]}
               </dt>
