@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
     <>
       <Head>
         <title>
-          Wordle Monkey
+          Wordle Monkey | a Wordle helper
         </title>
         <meta name="viewport" content="width=device-width,initial-scale=1"/>
         <meta name="description" content="Up your Wordle game by narrowing down your letter options"/>
