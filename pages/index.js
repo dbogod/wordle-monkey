@@ -207,7 +207,7 @@ const Home = () => {
     });
   })
   return (
-    <main>
+    <main className="mb-5">
       <section className="container mt-4">
         <div className="row">
           <div className="col">
@@ -237,7 +237,7 @@ const Home = () => {
           <ResultsTypeSelector
             resultsType={resultsType}
             setResultsType={setResultsType}/>
-          <div className="d-flex mt-8">
+          <div className="d-flex mt-4">
             <button
               type="submit"
               className="d-inline-block mt-2 p-2 btn btn-primary shadow">
