@@ -244,11 +244,6 @@ const Home = () => {
               className="d-inline-block mt-2 p-2 btn btn-primary shadow">
               Go
             </button>
-            <button
-              type="button"
-              className="d-inline-block mt-2 ms-2 p-2 btn btn-light shadow">
-              Reset
-            </button>
           </div>
         </form>
         {
