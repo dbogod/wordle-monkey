@@ -64,7 +64,7 @@ const LetterInput = ({ letterInputNumber, wordRowId, editWord, editConfirmedLett
         autoComplete="off"
         pattern="^[a-zA-Z]?$"
         hidden={hidden}
-        className={`rounded border text-center`}
+        className="p-0 rounded border text-center"
         onChange={changeHandler}
         onKeyUp={keyUpHandler}/>
     </div>
