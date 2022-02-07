@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import ConfirmedLetters from '../components/ConfirmedLetters';
 import GuessedWordsList from "../components/GuessedWordsList";
@@ -14,11 +14,16 @@ import {
 import { POSSIBLE_ANSWERS } from "../components/utilities/possibleAnswers";
 
 const Home = () => {
+  const [step, setStep] = useState(0);
   const [confirmedLetters, updateConfirmedLetters] = useState([]);
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [results, setResults] = useState([]);
   const [resultsType, setResultsType] = useState('');
   const [error, setError] = useState('');
+
+  const backButton = useRef(null);
+  const nextButton = useRef(null);
+  const resetButton = useRef(null);
 
   const getDataObj = async () => {
     const hasConfirmedLetters = confirmedLetters.length > 0;
@@ -185,13 +190,28 @@ const Home = () => {
   };
 
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    const data = await getDataObj();
-    if (data) {
-      const results = await generateResults(data);
-      setResults(results);
+  const clickHandler = async (e) => {
+    const isNextButton = e.currentTarget === nextButton.current;
+    if (isNextButton && step === 2) {
+      // Fetch results
+      const data = await getDataObj();
+      if (data) {
+        const results = await generateResults(data);
+        setResults(results);
+      }
     }
+
+    const stepChange = isNextButton ? 1 : -1;
+    setStep(step + stepChange);
+  };
+
+  const resetHandler = () => {
+    setStep(0);
+    updateConfirmedLetters([]);
+    setGuessedLetters([]);
+    setResults([]);
+    setResultsType('');
+    setError('');
   };
 
   useEffect(() => {
@@ -211,6 +231,9 @@ const Home = () => {
   })
   return (
     <main className="mb-5">
+      <div className="position-absolute">
+        {step.toString()}
+      </div>
       <section className="container mt-4">
         <div className="row">
           <div className="col">
@@ -232,32 +255,78 @@ const Home = () => {
       </section>
       <section className="container mt-4">
 
-        <form onSubmit={submitHandler}>
-          <ConfirmedLetters
-            updateConfirmedLetters={updateConfirmedLetters}/>
-          <GuessedWordsList
-            setGuessedLetters={setGuessedLetters}/>
-          <ResultsTypeSelector />
+        <form onSubmit={e => e.preventDefault()}>
+          {
+            step === 0 &&
+            <ConfirmedLetters
+              updateConfirmedLetters={updateConfirmedLetters}/>
+          }
+          {
+            step === 1 &&
+            <GuessedWordsList
+              setGuessedLetters={setGuessedLetters}/>
+          }
+          {
+            step === 2 &&
+            <ResultsTypeSelector/>
+          }
+
+
           <div className="d-flex mt-4">
+            {
+              // @TODO: Pass state to component when using back button
+              step > 0 &&
+              <button
+                ref={backButton}
+                type="button"
+                id="button-back"
+                className="d-inline-block mt-2 p-2 btn btn-light shadow"
+                onClick={clickHandler}>
+                Back
+              </button>
+            }
             <button
-              type="submit"
-              className="d-inline-block mt-2 p-2 btn btn-primary shadow">
-              Go
+              ref={step < 3 ? nextButton : resetButton}
+              type="button"
+              className="d-inline-block mt-2 p-2 btn btn-primary shadow"
+              onClick={step < 3 ? clickHandler : resetHandler}>
+              {
+                step === 2 ?
+                  'See results' :
+                  step === 3 ?
+                    'Start again' :
+                    'Next'
+              }
             </button>
+          </div>
+          <div>
+            <p>
+              {confirmedLetters}
+            </p>
+            <p>
+              {guessedLetters}
+            </p>
+            <p>
+              {resultsType}
+            </p>
           </div>
         </form>
         {
-          error !== '' &&
-          <ErrorMessage
-            error={error}/>
+          step === 3 &&
+          <>
+            {
+              error !== '' &&
+              <ErrorMessage
+                error={error}/>
+            }
+            {
+              results?.length > 0 &&
+              <Results
+                type={resultsType}
+                data={results}/>
+            }
+          </>
         }
-        {
-          results?.length > 0 &&
-          <Results
-            type={resultsType}
-            data={results}/>
-        }
-
       </section>
     </main>
 
