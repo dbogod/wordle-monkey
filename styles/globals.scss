@@ -5,6 +5,22 @@
   --colour-text: #d4ccda;
 }
 
+:is(a, button, input, textarea, summary) {
+  --outline-size: max(2px, 0.08em);
+  --outline-style: solid;
+  --outline-color: orange;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: var(--outline-size) var(--outline-style) var(--outline-color) !important;
+    outline-offset: var(--outline-offset, var(--outline-size)) !important;
+  }
+}
+
 body {
   background-color: var(--colour-bg);
   color: var(--colour-text);
@@ -14,10 +30,6 @@ body {
   font-family: 'Baloo 2', sans-serif;
   font-size: 1.35rem;
   line-height: 1.35;
-
- .is-tab &:focus {
-    outline: solid orange 2px !important;
-  }
 }
 
 h1 {
@@ -47,10 +59,6 @@ button {
 
   &:active {
     box-shadow: none !important;
-  }
-
-  &:focus {
-    outline-offset: 2px;
   }
 }
 

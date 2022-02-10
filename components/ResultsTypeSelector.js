@@ -33,6 +33,6 @@
         ))
       }
     </fieldset>
-  )
-}
+  );
+};
 export default ResultsTypeSelector;

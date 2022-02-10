@@ -49,7 +49,7 @@ const GuessedWordsList = ({ setGuessedLetters }) => {
       if (row.id === wordRow.id) {
         row.word = wordRow.word;
       }
-    })
+    });
     updateWordRows(wordRows);
     updateGuessedLetters(wordRows);
   };
@@ -108,7 +108,7 @@ const GuessedWordsList = ({ setGuessedLetters }) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default GuessedWordsList;

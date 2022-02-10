@@ -20,7 +20,7 @@ const ConfirmedLetters = ({ updateConfirmedLetters }) => {
     const confirmedLettersArray =
       editedConfirmedLetters
         .filter(confLetter => confLetter.letter !== '')
-        .map(confLetter => confLetter.letter)
+        .map(confLetter => confLetter.letter);
     updateConfirmedLetters(confirmedLettersArray);
   };
 
@@ -50,6 +50,6 @@ const ConfirmedLetters = ({ updateConfirmedLetters }) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 export default ConfirmedLetters;

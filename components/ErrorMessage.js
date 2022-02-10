@@ -4,6 +4,6 @@
       className="mt-4">
       {error}
     </div>
-  )
-}
+  );
+};
 export default ErrorMessage;

@@ -3,6 +3,6 @@
       <footer>
         Footer
       </footer>
-  )
-}
+  );
+};
 export default Footer;

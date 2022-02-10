@@ -2,7 +2,7 @@
   let sorted = [];
   for (const entry in arr) {
     sorted.push([entry, arr[entry]]);
-  };
+  }
   sorted.sort(function (a, b) {
     return b[1] - a[1];
   });

@@ -35,7 +35,7 @@ const WordRow = ({ id, removeWordRow, editWordRow }) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default WordRow;

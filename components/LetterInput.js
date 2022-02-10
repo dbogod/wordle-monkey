@@ -68,7 +68,7 @@ const LetterInput = ({ letterInputNumber, wordRowId, editWord, editConfirmedLett
         onChange={changeHandler}
         onKeyUp={keyUpHandler}/>
     </div>
-  )
+  );
 };
 
 export default LetterInput;

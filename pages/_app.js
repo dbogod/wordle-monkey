@@ -1,4 +1,4 @@
-import '../styles/main.scss'
+import '../styles/main.scss';
 import Layout from "../components/Layout";
 
 function MyApp({ Component, pageProps }) {
@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }) {
     <Layout>
       <Component {...pageProps} />
     </Layout>
-  )
+  );
 }
 
 export default MyApp;

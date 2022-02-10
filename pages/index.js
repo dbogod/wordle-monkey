@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import ConfirmedLetters from '../components/ConfirmedLetters';
 import GuessedWordsList from "../components/GuessedWordsList";
@@ -194,21 +194,6 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    const tabClass = 'is-tab';
-    const removeFocusClass = () => {
-      document.body.classList.contains(tabClass) && document.body.classList.remove(tabClass);
-      window.removeEventListener('mousedown', removeFocusClass);
-    };
-
-    window.addEventListener('keyup', e => {
-      if (e.key === 'Tab') {
-        e.preventDefault();
-        document.body.classList.add(tabClass);
-        window.addEventListener('mousedown', removeFocusClass);
-      }
-    });
-  })
   return (
     <main className="mb-5">
       <section className="container mt-4">
@@ -261,7 +246,7 @@ const Home = () => {
       </section>
     </main>
 
-  )
-}
+  );
+};
 
 export default Home;

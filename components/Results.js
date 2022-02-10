@@ -35,7 +35,7 @@
         }
       </dl>
     </div>
-  )
+  );
 };
 
 export default Results;
