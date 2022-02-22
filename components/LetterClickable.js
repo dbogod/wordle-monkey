@@ -3,7 +3,7 @@
     editPosition({ wordId: rowId, letter: { id: letterNumber, status: e.target.value } });
   };
 
-  const clickHandler = e => {
+  const clickHandler = () => {
     let newStatus;
     switch (status) {
       case 'absent':

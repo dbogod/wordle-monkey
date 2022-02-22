@@ -1,6 +1,6 @@
 ﻿import { useRef } from "react";
 
-const LetterInput = ({ value, letterNumber, editLetter, editWord, editPosition, rowId, hidden }) => {
+const LetterInput = ({ value, letterNumber, editLetter, editWord, rowId, hidden }) => {
   const input = useRef(null);
   const labelText = `Letter ${letterNumber.toString()}`;
   let inputId = '';

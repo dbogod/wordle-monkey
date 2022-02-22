@@ -54,7 +54,7 @@ export const createDataObj = async guessedWords => {
     // Loop through this word's confirmed letter count
     for (const [key, value] of Object.entries(wordLetterCount)) {
       // Update overall letter count if it does not have this information
-      if (!confLetterCount.hasOwnProperty(key) || confLetterCount[key] < value) {
+      if (!Object.prototype.hasOwnProperty.call(confLetterCount, key) || confLetterCount[key] < value) {
         confLetterCount[key] = value;
       }
     }
@@ -131,7 +131,7 @@ export const generateResults = async (data, wordsArr = POSSIBLE_ANSWERS) => {
     if (unknownLetters.length > 0) {
       unknownLetters.split('').forEach(unknownLetter => {
         letterScores[unknownLetter] = (letterScores[unknownLetter] || 0) + 1;
-      })
+      });
     }
   });
 
