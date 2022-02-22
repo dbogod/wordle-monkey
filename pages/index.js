@@ -1,197 +1,112 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
-import ConfirmedLetters from '../components/ConfirmedLetters';
-import GuessedWordsList from "../components/GuessedWordsList";
-import ResultsTypeSelector from '../components/ResultsTypeSelector';
-import ErrorMessage from '../components/ErrorMessage';
+import GuessedWords from "../components/GuessedWords";
 import Results from '../components/Results';
-
-import {
-  sortArray,
-  addKeyOrIncrementValue,
-  convertToPercentage
-} from '../components/utilities/helpers';
-import { POSSIBLE_ANSWERS } from "../components/utilities/possibleAnswers";
+import { createBlankLetterRow, createDataObj, generateResults } from '../components/utilities/helpers';
 
 const Home = () => {
-  const [confirmedLetters, updateConfirmedLetters] = useState([]);
-  const [guessedLetters, setGuessedLetters] = useState([]);
+  const [step, setStep] = useState(0);
+  const [guessedWords, setGuessedWords] = useState([{ wordId: 0, letters: createBlankLetterRow(5) }]);
+  const [numberOfCompleteGuessedWords, setNumberOfCompleteGuessedWords] = useState(0);
+  const [error, setError] = useState({});
   const [results, setResults] = useState([]);
-  const [resultsType, setResultsType] = useState('');
-  const [error, setError] = useState('');
 
-  const getDataObj = async () => {
-    const hasConfirmedLetters = confirmedLetters.length > 0;
-    const resultsTypeChecked = [...document.querySelectorAll('#resultsType input')].filter(radio => radio.checked === true);
-    const hasResultsType = resultsTypeChecked.length > 0;
-    if (hasConfirmedLetters && hasResultsType) {
-      setError('');
-      const letters = {};
-      confirmedLetters.forEach((letter) => {
-        letters[letter] = (letters[letter] || 0) + 1;
-      });
+  const backButton = useRef(null);
+  const nextButton = useRef(null);
+  const resetButton = useRef(null);
 
-      const dataObj = {
-        letters,
-        resultsType: resultsTypeChecked[0].value
-      };
+  const noIncompleteWords = () => numberOfCompleteGuessedWords > 0 && numberOfCompleteGuessedWords === guessedWords.length;
 
-      if (guessedLetters.length > 0) {
-        dataObj.excLetters = guessedLetters.filter((letter) => !confirmedLetters.includes(letter));
-      }
-
-      setResultsType(dataObj.resultsType);
-
-      return dataObj;
-    } else {
-      let error = '';
-      switch (true) {
-        case !hasConfirmedLetters && !hasResultsType:
-          error =
-            "Error! Check that you have entered some confirmed letters (a-z only) and select what results you like to see.";
-          break;
-        case !hasConfirmedLetters:
-          error =
-            "Error! Check that you have only entered letters a-z and try again";
-          break;
-        case !hasResultsType:
-          error = "Error! Select what type of results you would like to see.";
-          break;
-      }
-      setError(error);
-      return false;
-    }
-  };
-
-  const generateResults = async (dataObj, wordsArr = POSSIBLE_ANSWERS) => {
-    let results = {};
-    let containsDuplicates = false;
-    // Filter words list based on supplied letters
-    const incLettersObj = dataObj.letters;
-    const excLettersArr = dataObj.excLetters;
-    const type = dataObj.resultsType;
-    const letters = Object.keys(incLettersObj);
-    letters.forEach((letter) => {
-      // If duplicate letter, update boolean
-      incLettersObj[letter] > 1 && (containsDuplicates = true);
-    });
-
-    let incRegexString = '';
-    if (!containsDuplicates) {
-      letters.forEach((letter) => {
-        incRegexString = `${incRegexString}(?=.*${letter})`;
-      });
-    }
-    incRegexString = `${incRegexString}.*`;
-
-    let excRegexString = "";
-    if (excLettersArr?.length) {
-      excRegexString = "^[^";
-      excLettersArr.forEach((letter) => {
-        excRegexString = `${excRegexString}${letter}`;
-      });
-      excRegexString = `${excRegexString}]+$`;
-    }
-
-    const wordsContainingSubmittedLetters = wordsArr.filter((word) => {
-      let containsAllLetters;
-      if (containsDuplicates) {
-        containsAllLetters = true;
-        for (let i = 0; i <= letters.length - 1; i++) {
-          const regex = new RegExp(`[^${letters[i]}]`, "g");
-          if (word.replace(regex, "").length !== incLettersObj[letters[i]]) {
-            containsAllLetters = false;
-            break;
+  const editPosition = obj => {
+    const editedState = [...guessedWords];
+    editedState.forEach(word => {
+      if (word.wordId === obj.wordId) {
+        word.letters.forEach(letter => {
+          if (letter.id === obj.letter.id) {
+            letter.status = obj.letter.status;
           }
-        }
-      } else {
-        const regex = new RegExp(incRegexString, "gi");
-        containsAllLetters = regex.test(word);
-      }
-
-      if (excRegexString !== "") {
-        const excRegex = new RegExp(excRegexString, "gi");
-        return containsAllLetters && excRegex.test(word);
-      } else {
-        return containsAllLetters;
-      }
-    });
-
-    const cleanResults = (type) => {
-      // Remove initial instances of letters from results
-      letters.forEach((letter) => {
-        let amountToTakeOff =
-          wordsContainingSubmittedLetters.length * incLettersObj[letter];
-
-        if (type && type === "words") {
-          // Take one off for every word that only has the right count of said letter in it
-          const letterCount = incLettersObj[letter];
-          const regex = new RegExp(`[^${letter}]`, "g");
-          const wordsContainingRightAmountOfSaidLetter = wordsContainingSubmittedLetters.filter(
-            (word) => {
-              return word.replace(regex, "").length === letterCount;
-            }
-          );
-          amountToTakeOff = wordsContainingRightAmountOfSaidLetter.length;
-        }
-
-        results[letter] = results[letter] - amountToTakeOff;
-      });
-
-      // Remove zero values
-      Object.keys(results).forEach((result) => {
-        results[result] < 1 && delete results[result];
-      });
-    };
-
-    if (wordsContainingSubmittedLetters.length === 0) {
-      setError('There are no words that match these letters');
-      return;
-    }
-
-    if (type === 'probability') {
-      // Increment character value in friends obj
-      wordsContainingSubmittedLetters.forEach((word) => {
-        word.split("").forEach((char) => {
-          addKeyOrIncrementValue(results, char);
         });
-      });
-
-      cleanResults();
-
-      // Convert values to percentages
-      Object.keys(results).forEach((key) => {
-        results[key] = convertToPercentage(
-          results[key],
-          wordsContainingSubmittedLetters.length
-        );
-      });
-    } else if (type === 'words') {
-      // Loop through letters of the alphabet
-      for (let i = 10; i < 36; i++) {
-        const char = i.toString(36);
-        const wordsContainingChar = wordsContainingSubmittedLetters.filter(
-          (word) => {
-            return word.includes(char);
-          }
-        );
-        results[char] = wordsContainingChar.length;
       }
-
-      cleanResults(type);
-    }
-
-    return sortArray(results);
+    });
+    setGuessedWords(editedState);
   };
 
+  const updateNumberOfCompletedGuessedWords = guessedWordList => {
+    const numberOfBlanks = word => {
+      return word.letters.filter(letter => letter.letter === '').length;
+    };
+    const rowsWithNoBlanks = guessedWordList.filter(guessedWord => numberOfBlanks(guessedWord) === 0);
+    setNumberOfCompleteGuessedWords(rowsWithNoBlanks.length);
+    return rowsWithNoBlanks;
+  };
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    const data = await getDataObj();
-    if (data) {
-      const results = await generateResults(data);
-      setResults(results);
+  const editGuessedWord = word => {
+    const editedGuessedWords = [...guessedWords];
+    editedGuessedWords.forEach(guessedWord => {
+      if (guessedWord.wordId === word.wordId) {
+        guessedWord.letters.forEach(guessedLetter => {
+          if (guessedLetter.id === word.letters[0].id) {
+            guessedLetter.letter = word.letters[0].letter;
+          }
+        });
+      }
+    });
+
+    setGuessedWords(editedGuessedWords);
+
+    const validRows = updateNumberOfCompletedGuessedWords(editedGuessedWords);
+
+    if (editedGuessedWords.length === validRows.length) {
+      setError({ ...error, rowLength: false });
     }
+  };
+
+  const addNewGuessedWord = () => {
+    if (noIncompleteWords()) {
+      const newRow = {
+        wordId: guessedWords[guessedWords.length - 1].wordId + 1,
+        letters: createBlankLetterRow(5)
+      };
+      setGuessedWords([...guessedWords, newRow]);
+    } else {
+      setError({ ...error, rowLength: true });
+    }
+  };
+
+  const removeGuessedWord = id => {
+    const updatedGuessedWordsList = guessedWords.filter(guessedWord => guessedWord.wordId !== id);
+    setGuessedWords(updatedGuessedWordsList);
+    updateNumberOfCompletedGuessedWords(updatedGuessedWordsList);
+  };
+
+  const clickHandler = async e => {
+    const isNextButton = e.currentTarget === nextButton.current;
+
+    if (isNextButton && step === 1) {
+      const data = await createDataObj(guessedWords);
+
+      if (data) {
+        const results = await generateResults(data);
+        setResults(results);
+      }
+    }
+
+    const areWordsComplete = noIncompleteWords();
+
+    if (areWordsComplete) {
+      const stepChange = isNextButton ? 1 : -1;
+      setStep(step + stepChange);
+    }
+
+    setError({ ...error, rowLength: !areWordsComplete });
+  };
+
+  const resetHandler = () => {
+    setStep(0);
+    setGuessedWords([{ wordId: 0, letters: createBlankLetterRow(5) }]);
+    setNumberOfCompleteGuessedWords(0);
+    setError({});
+    setResults([]);
   };
 
   return (
@@ -205,44 +120,85 @@ const Home = () => {
             <p>
               Playing Wordle? Guessed one or more letters?
               <br/>
-              What other letters most likely to be in the word?
+              Want an idea of which <i>other</i> letters are most likely to be in the answer?
               <br/>
-              Use this tool to find out!
-            </p>
-            <p>
-              <i>NB: Letter position is not taken into account... yet!</i>
+              Wordle Monkey to the rescue!
+              🐵
             </p>
           </div>
         </div>
       </section>
       <section className="container mt-4">
+        <form onSubmit={e => e.preventDefault()}>
+          <div className="row">
+            <div className="col">
+              {
+                step === 0 &&
+                <>
+                  <h2 className="mt-0">
+                    Step 1: Which words have you tried so far?
+                  </h2>
+                  <p>
+                    For example, if your opening word was <i>SOUND</i>, enter it below. Add more words as necessary.
+                  </p>
+                  <GuessedWords
+                    guessedWords={guessedWords}
+                    editWord={editGuessedWord}
+                    addRow={addNewGuessedWord}
+                    removeRow={removeGuessedWord}
+                    error={error}/>
+                </>
+              }
+              {
+                step === 1 &&
+                <>
 
-        <form onSubmit={submitHandler}>
-          <ConfirmedLetters
-            updateConfirmedLetters={updateConfirmedLetters}/>
-          <GuessedWordsList
-            setGuessedLetters={setGuessedLetters}/>
-          <ResultsTypeSelector />
-          <div className="d-flex mt-4">
-            <button
-              type="submit"
-              className="d-inline-block mt-2 p-2 btn btn-primary shadow">
-              Go
-            </button>
+                  <h2 className="mt-0">
+                    Step 2: Tap/click the letters you know are in the answer
+                  </h2>
+                  <p>
+                    Tap each letter <b>once</b> if you know it is <i>somewhere</i> in the word,
+                    or <b>twice</b> if you know it is <i>in the right position</i>.
+                  </p>
+                  <GuessedWords
+                    guessedWords={guessedWords}
+                    editPosition={editPosition}/>
+                </>
+              }
+              <div className="d-flex mt-4">
+                {
+                  step > 0 &&
+                  <button
+                    ref={backButton}
+                    type="button"
+                    id="button-back"
+                    className="d-inline-block mt-2 me-2 p-2 btn btn-light shadow"
+                    onClick={clickHandler}>
+                    Back
+                  </button>
+                }
+                <button
+                  ref={step < 2 ? nextButton : resetButton}
+                  type="button"
+                  className="d-inline-block mt-2 p-2 btn btn-primary shadow"
+                  onClick={step < 2 ? clickHandler : resetHandler}>
+                  {
+                    step === 1 ?
+                      'See results' :
+                      step === 2 ?
+                        'Start again' :
+                        'Next'
+                  }
+                </button>
+              </div>
+            </div>
           </div>
         </form>
         {
-          error !== '' &&
-          <ErrorMessage
-            error={error}/>
-        }
-        {
-          results?.length > 0 &&
+          step === 2 &&
           <Results
-            type={resultsType}
             data={results}/>
         }
-
       </section>
     </main>
 
