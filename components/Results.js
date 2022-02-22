@@ -35,7 +35,6 @@ const Results = ({ data }) => {
     setVisibleSection(visibleSection === section ? '' : section);
   };
 
-
   return (
     <div
       className="mt-4"
@@ -43,55 +42,58 @@ const Results = ({ data }) => {
       <h2 className="col mt-0 mb-2">
         {hasData ? 'Results' : 'Error'}
       </h2>
-      <div>
-        <AccordionSection
-          id="letter-scores"
-          title="Letters"
-          visibleSection={visibleSection}
-          clickHandler={clickHandler}>
-          <dl>
-            {
-              letterScores.map((item, i) => (
-                <div
-                  key={i}
-                  className="row">
-                  <dt className="col-1">
-                    {item[0]}
-                  </dt>
-                  <dd className="col-10">
-                    {item[1]}
-                    {
-                      i === 0 &&
-                      <span>
+
+      {
+        hasData &&
+        <div>
+          <AccordionSection
+            id="letter-scores"
+            title="Letters"
+            visibleSection={visibleSection}
+            clickHandler={clickHandler}>
+            <dl>
+              {
+                letterScores.map((item, i) => (
+                  <div
+                    key={i}
+                    className="row">
+                    <dt className="col-1">
+                      {item[0]}
+                    </dt>
+                    <dd className="col-10">
+                      {item[1]}
+                      {
+                        i === 0 &&
+                        <span>
                     &nbsp; possible words
                   </span>
-                    }
-                  </dd>
-                </div>
-              ))
-            }
-          </dl>
-        </AccordionSection>
-        <AccordionSection
-          id="words"
-          title="Possible words"
-          visibleSection={visibleSection}
-          clickHandler={clickHandler}>
-          <ul className="list-unstyled">
-            {
-              filteredAnswers?.map((word, i) => (
-                <li key={i}>
-                  {word}
-                </li>
-              ))
-            }
-          </ul>
-        </AccordionSection>
-        <AccordionSection
-          id="word-count"
-          title="Number of possible words"
-          visibleSection={visibleSection}
-          clickHandler={clickHandler}>
+                      }
+                    </dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </AccordionSection>
+          <AccordionSection
+            id="words"
+            title="Possible words"
+            visibleSection={visibleSection}
+            clickHandler={clickHandler}>
+            <ul className="list-unstyled">
+              {
+                filteredAnswers?.map((word, i) => (
+                  <li key={i}>
+                    {word}
+                  </li>
+                ))
+              }
+            </ul>
+          </AccordionSection>
+          <AccordionSection
+            id="word-count"
+            title="Number of possible words"
+            visibleSection={visibleSection}
+            clickHandler={clickHandler}>
           <span>
             {
               wordCount === 1 ?
@@ -100,39 +102,16 @@ const Results = ({ data }) => {
                 `There are ${wordCount} possible words`
             }
           </span>
-        </AccordionSection>
-      </div>
-      {/*{*/}
-      {/*  hasData ?*/}
-      {/*    <dl>*/}
-      {/*      {*/}
-      {/*        data.letterScores.map((item, i) => (*/}
-      {/*          <div*/}
-      {/*            key={i}*/}
-      {/*            className="row">*/}
-      {/*            <dt className="col-1">*/}
-      {/*              {item[0]}*/}
-      {/*            </dt>*/}
-      {/*            <dd className="col-10">*/}
-      {/*              {item[1]}*/}
-      {/*              {*/}
-      {/*                i === 0 &&*/}
-      {/*                <span>*/}
-      {/*              &nbsp; possible words*/}
-      {/*            </span>*/}
-      {/*              }*/}
-      {/*            </dd>*/}
-      {/*          </div>*/}
-      {/*        ))*/}
-      {/*      }*/}
-      {/*    </dl>*/}
-      {/*    :*/}
-      {/*    <div*/}
-      {/*      className="mt-4">*/}
-      {/*      There are no matching words! Please click the "back" button above and check the letters are correct*/}
-      {/*    </div>*/}
-      {/*}*/}
-
+          </AccordionSection>
+        </div>
+      }
+      {
+        !hasData &&
+        <div
+          className="mt-4">
+          There are no matching words! Please click the &lsquo;back&lsquo; button above and check the letters are correct
+        </div>
+      }
     </div>
   );
 };
