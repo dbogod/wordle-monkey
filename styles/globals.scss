@@ -1,8 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
 
 :root {
-  --colour-bg: #27272c;
+  --colour-bg: #121213;
   --colour-text: #d4ccda;
+  --colour-wordle-correct: #538d4e;
+  --colour-wordle-absent: #3a3a3c;
+  --colour-wordle-present: #b59f3b;
+}
+
+.colour-blind {
+  --colour-wordle-correct: #f5793a;
+  --colour-wordle-present: #85c0f9;
 }
 
 body {
@@ -12,10 +20,10 @@ body {
 
 * {
   font-family: 'Baloo 2', sans-serif;
-  font-size: 1.35rem;
+  font-size: 1.15rem;
   line-height: 1.35;
 
- .is-tab &:focus {
+  .is-tab &:focus {
     outline: solid orange 2px !important;
   }
 }
@@ -42,7 +50,7 @@ dt {
   text-transform: uppercase;
 }
 
-button {
+button:not(.letter-clickable) {
   min-width: 5rem;
 
   &:active {
@@ -54,11 +62,38 @@ button {
   }
 }
 
+.wordle,
+.letter-clickable,
 input[type="text"] {
   height: 3rem;
   max-width: 3rem;
   font-size: 1.75rem;
+  font-weight: 600;
   text-transform: uppercase;
+  color: var(--colour-text);
+  background: transparent;
+}
+
+.letter-clickable {
+  width: 3rem;
+
+  &--present {
+    background-color: var(--colour-wordle-present);
+  }
+
+  &--correct {
+    background-color: var(--colour-wordle-correct);
+  }
+}
+
+.wordle {
+  height: 2rem;
+  width: 2rem;
+  background-color: var(--colour-wordle-absent);
+
+  &--correct {
+    background-color: var(--colour-wordle-correct);
+  }
 }
 
 fieldset > div {
