@@ -15,6 +15,8 @@ const Home = () => {
   const nextButton = useRef(null);
   const resetButton = useRef(null);
 
+  const noIncompleteWords = () => numberOfCompleteGuessedWords > 0 && numberOfCompleteGuessedWords === guessedWords.length;
+
   const editPosition = obj => {
     const editedState = [...guessedWords];
     editedState.forEach(word => {
@@ -60,7 +62,7 @@ const Home = () => {
   };
 
   const addNewGuessedWord = () => {
-    if (numberOfCompleteGuessedWords > 0 && numberOfCompleteGuessedWords === guessedWords.length) {
+    if (noIncompleteWords) {
       const newRow = {
         wordId: guessedWords[guessedWords.length - 1].wordId + 1,
         letters: createBlankLetterRow(5)
@@ -89,8 +91,12 @@ const Home = () => {
       }
     }
 
-    const stepChange = isNextButton ? 1 : -1;
-    setStep(step + stepChange);
+    if (noIncompleteWords) {
+      const stepChange = isNextButton ? 1 : -1;
+      setStep(step + stepChange);
+    } else {
+      // @TODO: Add error message
+    }
   };
 
   const resetHandler = () => {
