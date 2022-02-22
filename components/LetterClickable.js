@@ -22,7 +22,7 @@
   const inputValues = ['absent', 'present', 'correct'];
 
   return (
-    <div className="d-inline-flex flex-column letter-wrapper">
+    <div className="d-inline-flex flex-column me-1">
       <button
         className={`letter-clickable letter-clickable--${status} d-flex align-items-center justify-content-center p-0 rounded border text-center`}
         onClick={clickHandler}>
@@ -36,6 +36,7 @@
               className="visually-hidden">
               <input
                 id={`word-${rowId}-position-${letterNumber}-${val}`}
+                tabIndex="-1"
                 name={`position-${letterNumber}`}
                 value={val}
                 checked={status === val}

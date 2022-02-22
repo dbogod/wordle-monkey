@@ -13,7 +13,7 @@ const GuessedWords = ({ guessedWords, editWord, addRow, removeRow, editPosition,
               <h3 className="mb-0">
                 Error
               </h3>
-              Incomplete word(s): Please check all your words so far have 5 letters
+              Please check all your words so far have 5 letters
             </div>
           </div>
         </div>

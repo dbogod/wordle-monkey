@@ -3,6 +3,7 @@
 :root {
   --colour-bg: #121213;
   --colour-text: #d4ccda;
+  --color-accordion-text: #fff;
   --colour-wordle-correct: #538d4e;
   --colour-wordle-absent: #3a3a3c;
   --colour-wordle-present: #b59f3b;
@@ -23,8 +24,8 @@ body {
   font-size: 1.15rem;
   line-height: 1.35;
 
-  .is-tab &:focus {
-    outline: solid orange 2px !important;
+  &:focus-visible {
+    outline: solid orange 3px !important;
   }
 }
 
@@ -50,7 +51,7 @@ dt {
   text-transform: uppercase;
 }
 
-button:not(.letter-clickable) {
+button:not(.letter-clickable):not(.btn-remove-word ) {
   min-width: 5rem;
 
   &:active {
@@ -64,14 +65,25 @@ button:not(.letter-clickable) {
 
 .wordle,
 .letter-clickable,
-input[type="text"] {
+input[type="text"],
+.btn-remove-word {
   height: 3rem;
   max-width: 3rem;
+}
+
+.wordle,
+.letter-clickable,
+input[type="text"] {
   font-size: 1.75rem;
   font-weight: 600;
   text-transform: uppercase;
   color: var(--colour-text);
   background: transparent;
+}
+
+.btn-remove-word {
+  font-weight: $font-weight-light;
+  font-size: 1.75rem;
 }
 
 .letter-clickable {
@@ -85,6 +97,7 @@ input[type="text"] {
     background-color: var(--colour-wordle-correct);
   }
 }
+
 
 .wordle {
   height: 2rem;
@@ -108,17 +121,16 @@ h2 {
   margin-top: 0.5rem;
 }
 
-.btn-remove-word {
-  min-width: 0;
-}
+.accordion-section {
+  svg {
+    margin-right: 0.75rem;
+  }
 
-.letter-wrapper {
-  margin-right: 0.25rem;
-  flex: 1 1 calc(16.6666666667% - 0.25rem);
-  max-width: calc(16.6666666667% - 0.25rem);
+  button {
+    color: var(--color-accordion-text);
 
-  @include media-breakpoint-up(md) {
-    flex: 0 0 auto;
-    max-width: none;
+    &[aria-expanded="true"] svg {
+      transform: rotate(180deg);
+    }
   }
 }

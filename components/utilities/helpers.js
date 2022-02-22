@@ -118,7 +118,7 @@ export const generateResults = async (data, wordsArr = POSSIBLE_ANSWERS) => {
 
   const filteredAnswers = wordsArr.filter(word => regex.test(word));
 
-  let results = {};
+  let letterScores = {};
   filteredAnswers.forEach(word => {
     let unknownLetters = word;
     for (const [letter, count] of Object.entries(confLetterCount)) {
@@ -130,13 +130,16 @@ export const generateResults = async (data, wordsArr = POSSIBLE_ANSWERS) => {
 
     if (unknownLetters.length > 0) {
       unknownLetters.split('').forEach(unknownLetter => {
-        results[unknownLetter] = (results[unknownLetter] || 0) + 1;
+        letterScores[unknownLetter] = (letterScores[unknownLetter] || 0) + 1;
       })
     }
   });
 
-  console.log({ filteredAnswers });
+  letterScores = sortArray(letterScores);
 
-  return sortArray(results);
+  return {
+    filteredAnswers,
+    letterScores
+  };
 };
 

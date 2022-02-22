@@ -4,7 +4,7 @@ import LetterClickable from "./LetterClickable";
 const LettersRow = ({ letters, editLetter, editPosition, editWord, removeRow, rowId }) => {
   return (
     <>
-      <div className="row">
+      <div className="row mt-2">
         <div className="col d-flex">
           {
             [...letters].map(({ id, letter, status }) => {
@@ -35,16 +35,14 @@ const LettersRow = ({ letters, editLetter, editPosition, editWord, removeRow, ro
           }
           {
             rowId > 0 && removeRow &&
-            <div className="letter-input-wrapper d-inline-flex align-content-center">
-              <button
-                type="button"
-                className="btn btn-remove-word shadow align-self-center w-100"
-                aria-label="Remove word row"
-                title="Remove word row"
-                onClick={() => removeRow(rowId)}>
-                x
-              </button>
-            </div>
+            <button
+              type="button"
+              className="btn btn-remove-word shadow align-self-center w-100 d-flex align-items-center justify-content-center"
+              aria-label="Remove this word row"
+              title="Remove this word row"
+              onClick={() => removeRow(rowId)}>
+              x
+            </button>
           }
         </div>
       </div>

@@ -62,7 +62,7 @@ const Home = () => {
   };
 
   const addNewGuessedWord = () => {
-    if (noIncompleteWords) {
+    if (noIncompleteWords()) {
       const newRow = {
         wordId: guessedWords[guessedWords.length - 1].wordId + 1,
         letters: createBlankLetterRow(5)
@@ -91,12 +91,14 @@ const Home = () => {
       }
     }
 
-    if (noIncompleteWords) {
+    const areWordsComplete = noIncompleteWords();
+
+    if (areWordsComplete) {
       const stepChange = isNextButton ? 1 : -1;
       setStep(step + stepChange);
-    } else {
-      // @TODO: Add error message
     }
+
+    setError({ ...error, rowLength: !areWordsComplete });
   };
 
   const resetHandler = () => {
@@ -121,6 +123,7 @@ const Home = () => {
               Want an idea of which <i>other</i> letters are most likely to be in the answer?
               <br/>
               Wordle Monkey to the rescue!
+              🐵
             </p>
           </div>
         </div>
@@ -169,7 +172,7 @@ const Home = () => {
                     ref={backButton}
                     type="button"
                     id="button-back"
-                    className="d-inline-block mt-2 p-2 btn btn-light shadow"
+                    className="d-inline-block mt-2 me-2 p-2 btn btn-light shadow"
                     onClick={clickHandler}>
                     Back
                   </button>

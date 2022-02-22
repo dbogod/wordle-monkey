@@ -60,7 +60,7 @@ const LetterInput = ({ value, letterNumber, editLetter, editWord, editPosition, 
   };
 
   return (
-    <div className="d-inline-flex flex-column letter-wrapper">
+    <div className="d-inline-flex flex-column me-1">
       {
         !hidden &&
         <label
@@ -73,6 +73,7 @@ const LetterInput = ({ value, letterNumber, editLetter, editWord, editPosition, 
         ref={input}
         id={inputId ?? ''}
         type="text"
+        autoFocus={letterNumber === 0}
         maxLength="1"
         value={value}
         autoComplete="off"
