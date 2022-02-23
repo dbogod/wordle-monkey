@@ -1,4 +1,5 @@
 ﻿import Head from "next/head";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 const Layout = ({ children }) => {
   return (
@@ -14,6 +15,7 @@ const Layout = ({ children }) => {
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
         <link rel="manifest" href="/site.webmanifest"/>
       </Head>
+      <ThemeSwitcher/>
       {children}
     </>
   );

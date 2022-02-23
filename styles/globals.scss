@@ -3,15 +3,23 @@
 :root {
   --colour-bg: #121213;
   --colour-text: #d4ccda;
-  --color-accordion-text: #fff;
+  --colour-accordion-text: #fff;
   --colour-wordle-correct: #538d4e;
   --colour-wordle-absent: #3a3a3c;
   --colour-wordle-present: #b59f3b;
+  --theme-toggle-bg-colour: darkgrey;
+  --theme-toggle-switch-colour: #fff;
 }
 
 .colour-blind {
   --colour-wordle-correct: #f5793a;
   --colour-wordle-present: #85c0f9;
+}
+
+[data-theme="light"] {
+  --colour-bg: #fff;
+  --colour-text: #000;
+  --colour-accordion-text: #000;
 }
 
 :is(a, button, input, textarea, summary) {
@@ -97,11 +105,18 @@ input[type="text"] {
 .letter-clickable {
   width: 3rem;
 
+  &--absent {
+    color: #fff;
+    background-color: var(--colour-wordle-absent);
+  }
+
   &--present {
+    color: #fff;
     background-color: var(--colour-wordle-present);
   }
 
   &--correct {
+    color: #fff;
     background-color: var(--colour-wordle-correct);
   }
 }
@@ -130,15 +145,59 @@ h2 {
 }
 
 .accordion-section {
+  border-bottom: 1px solid var(--colour-accordion-text);
+
   svg {
     margin-right: 0.75rem;
   }
 
   button {
-    color: var(--color-accordion-text);
+    color: var(--colour-accordion-text);
 
     &[aria-expanded="true"] svg {
       transform: rotate(180deg);
+    }
+  }
+}
+
+.toggle {
+  position: relative;
+  width: 2rem;
+  height: 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--theme-toggle-bg-colour);
+  cursor: pointer;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0.125rem;
+    left: 0.125rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: var(--theme-toggle-switch-colour);
+    transition: 300ms ease-in-out;
+  }
+
+  input:checked + &::after {
+    left: auto;
+    transform: translateX(1.125rem);
+  }
+
+  .icon {
+    position: absolute;
+    top: 0.14rem;
+    height: 0.65rem;
+
+    &--sun {
+      left: -0.05rem;
+      color: #ffd700;
+    }
+
+    &--moon {
+      right: -0.05rem;
+      color: #4682b4;
     }
   }
 }
