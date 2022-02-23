@@ -4,7 +4,7 @@ import { FiChevronDown } from 'react-icons/fi';
 const AccordionSection = ({ id, title, visibleSection, clickHandler, children }) => {
   const isVisible = visibleSection === id;
   return (
-    <div className="accordion-section border-bottom border-white">
+    <div className="accordion-section">
       <h3 className="m-0">
         <button
           type="button"
