@@ -1,26 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
-
-:root {
-  --colour-bg: #121213;
-  --colour-text: #d4ccda;
-  --colour-accordion-text: #fff;
-  --colour-wordle-correct: #538d4e;
-  --colour-wordle-absent: #3a3a3c;
-  --colour-wordle-present: #b59f3b;
-  --theme-toggle-bg-colour: darkgrey;
-  --theme-toggle-switch-colour: #fff;
-}
-
-.colour-blind {
-  --colour-wordle-correct: #f5793a;
-  --colour-wordle-present: #85c0f9;
-}
-
-[data-theme="light"] {
-  --colour-bg: #fff;
-  --colour-text: #000;
-  --colour-accordion-text: #000;
-}
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap');
 
 :is(a, button, input, textarea, summary) {
   --outline-size: max(2px, 0.08em);
@@ -71,12 +49,16 @@ dt {
   text-transform: uppercase;
 }
 
-button:not(.letter-clickable):not(.btn-remove-word ) {
+button:not(.letter-clickable):not(.btn-remove-word):not(.btn-icon) {
   min-width: 5rem;
 
   &:active {
     box-shadow: none !important;
   }
+}
+
+input[type="text"] {
+  border: 2px solid var(--colour-text);
 }
 
 .wordle,
@@ -156,48 +138,6 @@ h2 {
 
     &[aria-expanded="true"] svg {
       transform: rotate(180deg);
-    }
-  }
-}
-
-.toggle {
-  position: relative;
-  width: 2rem;
-  height: 1rem;
-  border-radius: 0.5rem;
-  background-color: var(--theme-toggle-bg-colour);
-  cursor: pointer;
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0.125rem;
-    left: 0.125rem;
-    width: 0.75rem;
-    height: 0.75rem;
-    border-radius: 50%;
-    background-color: var(--theme-toggle-switch-colour);
-    transition: 300ms ease-in-out;
-  }
-
-  input:checked + &::after {
-    left: auto;
-    transform: translateX(1.125rem);
-  }
-
-  .icon {
-    position: absolute;
-    top: 0.14rem;
-    height: 0.65rem;
-
-    &--sun {
-      left: -0.05rem;
-      color: #ffd700;
-    }
-
-    &--moon {
-      right: -0.05rem;
-      color: #4682b4;
     }
   }
 }
