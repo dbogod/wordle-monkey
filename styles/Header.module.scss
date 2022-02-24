@@ -1,0 +1,14 @@
+﻿.header {
+  border-bottom: 1px solid var(--colour-keyline);
+}
+
+.headerContent {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cog {
+  color: var(--icon-colour-settings);
+  width: 1rem;
+  height: 1rem;
+}

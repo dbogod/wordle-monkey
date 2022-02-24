@@ -1,4 +1,29 @@
-﻿$wm-colours: (
+﻿:root {
+  --colour-bg: #121213;
+  --colour-text: #d4ccda;
+  --colour-accordion-text: #fff;
+  --colour-wordle-correct: #538d4e;
+  --colour-wordle-absent: #3a3a3c;
+  --colour-wordle-present: #b59f3b;
+  --theme-toggle-bg-colour: #a9a9a9;
+  --theme-toggle-switch-colour: #fff;
+  --icon-colour-settings: #fff;
+  --colour-keyline: #3a3a3c;
+}
+
+[data-hi-contrast="true"] {
+  --colour-wordle-correct: #f5793a;
+  --colour-wordle-present: #85c0f9;
+}
+
+[data-theme="light"] {
+  --colour-bg: #fff;
+  --colour-text: #000;
+  --colour-accordion-text: #000;
+  --icon-colour-settings: #000;
+}
+
+$wm-colours: (
   "add-word": #e1be6a,
   "remove-word": #40b0a6
 );
@@ -39,4 +64,8 @@ $spacers: (
   30: ($spacer * 7.5),
   31: ($spacer * 7.75),
   32: ($spacer * 8)
+);
+
+$container-max-widths: (
+  sm: 540px
 );

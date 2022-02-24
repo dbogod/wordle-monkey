@@ -79,7 +79,7 @@ const LetterInput = ({ value, letterNumber, editLetter, editWord, rowId, hidden 
         autoComplete="off"
         pattern="^[a-zA-Z]?$"
         hidden={hidden}
-        className="p-0 rounded border text-center"
+        className="p-0 rounded text-center"
         onChange={changeHandler}
         onKeyUp={keyUpHandler}
       />

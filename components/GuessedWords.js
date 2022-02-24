@@ -8,7 +8,7 @@ const GuessedWords = ({ guessedWords, editWord, addRow, removeRow, editPosition,
         <div className="row">
           <div className="col">
             <div
-              className="d-inline-block mb-2 p-2 bg-white text-danger"
+              className="d-inline-block mb-2 p-2 bg-white border border-danger text-danger"
               role="alert">
               <h3 className="mb-0">
                 Error

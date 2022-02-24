@@ -1,13 +1,14 @@
 ﻿import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { BsMoonFill, BsSunFill } from "react-icons/bs";
+import styles from '../styles/ThemeSwitcher.module.scss';
 
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
   const changeHandler = e => {
-    setTheme(e.target.checked ? 'light' : 'dark');
+    setTheme(e.target.checked ? 'dark' : 'light');
   };
 
   useEffect(() => setMounted(true), []);
@@ -17,23 +18,23 @@ const ThemeSwitcher = () => {
   }
 
   return (
-    <div className="position-absolute top-0 end-0 p-4">
+    <>
       <input
         id="theme-switcher"
-        className="visually-hidden"
+        className={`${styles.input} visually-hidden`}
         type="checkbox"
         onChange={changeHandler}
-        checked={theme === 'light'}/>
+        checked={resolvedTheme === 'dark'}/>
       <label
         htmlFor="theme-switcher"
-        className="toggle">
+        className={styles.toggle}>
         <span className="visually-hidden">
           Check for dark theme, uncheck for light theme
         </span>
-        <BsSunFill className="icon icon--sun"/>
-        <BsMoonFill className="icon icon--moon"/>
+        <BsMoonFill className={`${styles.icon} ${styles.iconMoon}`}/>
+        <BsSunFill className={`${styles.icon} ${styles.iconSun}`}/>
       </label>
-    </div>
+    </>
   );
 };
 
