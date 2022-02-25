@@ -1,0 +1,32 @@
+﻿.toggle {
+  position: relative;
+  width: 2.5rem;
+  height: 0.9rem;
+  border: 1px solid #828282;
+  border-radius: 1rem;
+  background-color: var(--toggle-bg-colour-off);
+  cursor: pointer;
+  transition: 300ms ease-in-out;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -0.225rem;
+    left: -0.1rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 1px solid #828282;
+    border-radius: 50%;
+    background-color: var(--toggle-switch-colour);
+    transition: 300ms ease-in-out;
+  }
+
+  .input:checked + & {
+    background-color: var(--toggle-bg-colour-on);
+
+    &::after {
+      left: auto;
+      transform: translateX(1.3rem);
+    }
+  }
+}

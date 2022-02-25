@@ -1,7 +1,6 @@
 ﻿import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
-import { BsMoonFill, BsSunFill } from "react-icons/bs";
-import styles from '../styles/ThemeSwitcher.module.scss';
+import Toggle from "./Toggle";
 
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
@@ -18,23 +17,11 @@ const ThemeSwitcher = () => {
   }
 
   return (
-    <>
-      <input
-        id="theme-switcher"
-        className={`${styles.input} visually-hidden`}
-        type="checkbox"
-        onChange={changeHandler}
-        checked={resolvedTheme === 'dark'}/>
-      <label
-        htmlFor="theme-switcher"
-        className={styles.toggle}>
-        <span className="visually-hidden">
-          Check for dark theme, uncheck for light theme
-        </span>
-        <BsMoonFill className={`${styles.icon} ${styles.iconMoon}`}/>
-        <BsSunFill className={`${styles.icon} ${styles.iconSun}`}/>
-      </label>
-    </>
+    <Toggle
+      id="theme-switcher"
+      changeHandler={changeHandler}
+      checked={resolvedTheme === 'dark'}
+      labelText="Check to use dark theme"/>
   );
 };
 

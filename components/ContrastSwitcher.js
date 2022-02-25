@@ -1,7 +1,6 @@
-﻿import styles from '../styles/ContrastSwitcher.module.scss';
+﻿import Toggle from './Toggle';
 
-const ContrastSwitcher = ({isHiContrast, setIsHiContrast}) => {
-
+const ContrastSwitcher = ({ isHiContrast, setIsHiContrast }) => {
   const changeHandler = e => {
     const key = 'wordle-monkey-hi-contrast';
     const checked = e.target.checked;
@@ -11,21 +10,11 @@ const ContrastSwitcher = ({isHiContrast, setIsHiContrast}) => {
   };
 
   return (
-    <>
-      <input
-        id="contrast-switcher"
-        className={`${styles.input} visually-hidden`}
-        type="checkbox"
-        onChange={changeHandler}
-        checked={isHiContrast}/>
-      <label
-        htmlFor="contrast-switcher"
-        className={styles.toggle}>
-        <span className="visually-hidden">
-          Check for high contrast theme
-        </span>
-      </label>
-    </>
+    <Toggle
+      id="contrast-switcher"
+      changeHandler={changeHandler}
+      checked={isHiContrast}
+      labelText="Check for high contrast theme"/>
   );
 };
 
