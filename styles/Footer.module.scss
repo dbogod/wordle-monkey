@@ -1,6 +1,7 @@
 ﻿.footer {
-  position: absolute;
-  bottom: 0;
+  display: flex;
+  align-items: center;
+  height: var(--height-footer);
   border-top: 1px solid var(--colour-keyline);
 }
 

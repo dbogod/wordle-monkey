@@ -1,10 +1,10 @@
 ﻿import styles from '../styles/Footer.module.scss';
 import { BsTwitter, BsGithub } from "react-icons/bs";
 
-const Footer = () => {
+const Footer = ({isSettingsOpen}) => {
   return (
     <>
-      <footer className={`${styles.footer} position-absolute bottom-0 w-100`}>
+      <footer className={`${styles.footer} ${isSettingsOpen ? 'position-absolute bottom-0': ''} w-100`}>
         <div className="container">
           <div className={`${styles.footerContent} py-1`}>
 

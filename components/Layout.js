@@ -36,10 +36,10 @@ const Layout = ({ children }) => {
         setIsSettingsOpen={setIsSettingsOpen}
         isHiContrast={isHiContrast}
         setIsHiContrast={setIsHiContrast}/>
-      <main className={`${isSettingsOpen ? 'd-none': ''} mb-5`}>
+      <main className={`${isSettingsOpen ? 'd-none': ''} pb-5`}>
         {children}
       </main>
-      <Footer/>
+      <Footer isSettingsOpen={isSettingsOpen}/>
     </>
   );
 };

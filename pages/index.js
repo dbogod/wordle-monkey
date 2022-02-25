@@ -111,7 +111,7 @@ const Home = () => {
 
   return (
     <>
-      <section className="container mt-4">
+      <section className="container pt-4">
         <div className="row">
           <div className="col">
             <p>
@@ -125,7 +125,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="container mt-4">
+      <section className="container pt-4">
         <form onSubmit={e => e.preventDefault()}>
           <div className="row">
             <div className="col">
