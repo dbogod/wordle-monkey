@@ -114,9 +114,6 @@ const Home = () => {
       <section className="container mt-4">
         <div className="row">
           <div className="col">
-            <h1>
-              Wordle Monkey
-            </h1>
             <p>
               Playing Wordle? Guessed one or more letters?
               <br/>
@@ -201,7 +198,6 @@ const Home = () => {
         }
       </section>
     </main>
-
   );
 };
 

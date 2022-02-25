@@ -1,16 +1,6 @@
-﻿.header {
-  border-bottom: 1px solid var(--colour-text);
-}
-
-.settings {
+﻿.settings {
   background-color: var(--colour-bg);
   animation: slide-up 100ms ease-in-out forwards;
-}
-
-.headerContent {
-  position: relative;
-  display: flex;
-  justify-content: center;
 }
 
 .close {
