@@ -110,7 +110,7 @@ const Home = () => {
   };
 
   return (
-    <main className="mb-5">
+    <>
       <section className="container mt-4">
         <div className="row">
           <div className="col">
@@ -197,7 +197,7 @@ const Home = () => {
             data={results}/>
         }
       </section>
-    </main>
+    </>
   );
 };
 

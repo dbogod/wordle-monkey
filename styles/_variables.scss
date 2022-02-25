@@ -10,6 +10,8 @@
   --toggle-switch-colour: #fff;
   --icon-colour-settings: #fff;
   --colour-keyline: #3a3a3c;
+  --footer-icon-link: var(--colour-text);
+  --footer-icon-link-hover: #ffff00;
 }
 
 [data-hi-contrast="true"] {
@@ -22,6 +24,7 @@
   --colour-text: #000;
   --colour-accordion-text: #000;
   --icon-colour-settings: #000;
+  --footer-icon-link-hover: var(--colour-wordle-correct);
 }
 
 $wm-colours: (

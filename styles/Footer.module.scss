@@ -1,0 +1,21 @@
+﻿.footer {
+  position: absolute;
+  bottom: 0;
+  border-top: 1px solid var(--colour-keyline);
+}
+
+.footerContent {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.iconLink,
+.iconLink:visited {
+  color: var(--footer-icon-link);
+  transition: 100ms ease-out;
+
+  &:hover {
+    color: var(--footer-icon-link-hover);
+  }
+}

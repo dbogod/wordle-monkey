@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 
 import Header from './Header';
+import Footer from './Footer';
 import Settings from './Settings';
 
 const Layout = ({ children }) => {
@@ -35,7 +36,10 @@ const Layout = ({ children }) => {
         setIsSettingsOpen={setIsSettingsOpen}
         isHiContrast={isHiContrast}
         setIsHiContrast={setIsHiContrast}/>
-      {children}
+      <main className={`${isSettingsOpen ? 'd-none': ''} mb-5`}>
+        {children}
+      </main>
+      <Footer/>
     </>
   );
 };
