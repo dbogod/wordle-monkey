@@ -53,6 +53,10 @@ a {
   transition: 100ms ease-out;
 }
 
+main {
+  min-height: var(--min-height-main);
+}
+
 button:not(.letter-clickable):not(.btn-remove-word):not(.btn-icon) {
   min-width: 5rem;
 

@@ -12,6 +12,9 @@
   --colour-keyline: #3a3a3c;
   --footer-icon-link: var(--colour-text);
   --footer-icon-link-hover: #ffff00;
+  --height-header: 3.625rem;
+  --height-footer: 2.5rem;
+  --min-height-main: calc(100vh - var(--height-footer) - var(--height-header));
 }
 
 [data-hi-contrast="true"] {

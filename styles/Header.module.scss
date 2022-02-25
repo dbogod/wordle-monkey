@@ -1,4 +1,7 @@
 ﻿.header {
+  display: flex;
+  align-items: center;
+  height: var(--height-header);
   border-bottom: 1px solid var(--colour-keyline);
 }
 
