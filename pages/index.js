@@ -45,8 +45,13 @@ const Home = () => {
     editedGuessedWords.forEach(guessedWord => {
       if (guessedWord.wordId === word.wordId) {
         guessedWord.letters.forEach(guessedLetter => {
-          if (guessedLetter.id === word.letters[0].id) {
-            guessedLetter.letter = word.letters[0].letter;
+          const { id, letter } = word.letters[0];
+          if (guessedLetter.id === id && guessedLetter.letter !== letter) {
+            guessedLetter.letter = letter;
+
+            guessedWord.letters.forEach(guessedLetter => {
+              guessedLetter.status = 'absent';
+            });
           }
         });
       }
@@ -147,7 +152,7 @@ const Home = () => {
                 </>
               }
               {
-                step === 1 &&
+                step > 0 &&
                 <>
 
                   <h2 className="mt-0">
