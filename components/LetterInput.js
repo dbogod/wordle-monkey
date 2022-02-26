@@ -73,7 +73,7 @@ const LetterInput = ({ value, letterNumber, editLetter, editWord, rowId, hidden 
         ref={input}
         id={inputId ?? ''}
         type="text"
-        autoFocus={letterNumber === 0}
+        autoFocus={rowId > 0 && letterNumber === 0}
         maxLength="1"
         value={value}
         autoComplete="off"

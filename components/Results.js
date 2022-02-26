@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+﻿import { useState, useRef, useEffect } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 
 const AccordionSection = ({ id, title, visibleSection, clickHandler, children }) => {
@@ -26,6 +26,7 @@ const AccordionSection = ({ id, title, visibleSection, clickHandler, children })
 };
 
 const Results = ({ data }) => {
+  const resultsContainer = useRef(null);
   const [visibleSection, setVisibleSection] = useState('');
   const { filteredAnswers, letterScores } = data;
   const hasData = letterScores?.length > 0;
@@ -35,8 +36,13 @@ const Results = ({ data }) => {
     setVisibleSection(visibleSection === section ? '' : section);
   };
 
+  useEffect(() => {
+    resultsContainer.current && resultsContainer.current.scrollIntoView({ behavior: 'smooth' });
+  }, [resultsContainer]);
+
   return (
     <div
+      ref={resultsContainer}
       className="mt-4"
       role="alert">
       <h2 className="col mt-0 mb-2">
