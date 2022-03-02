@@ -1,16 +1,18 @@
-import { useState, useRef } from "react";
+import { useState, useRef } from 'react';
 
-import GuessedWords from "../components/GuessedWords";
+import GuessedWords from '../components/GuessedWords';
 import Results from '../components/Results';
 import { createBlankLetterRow, createDataObj, generateResults } from '../components/utilities/helpers';
 
 const Home = () => {
   const [step, setStep] = useState(0);
+  const [gridHeight, setGridHeight] = useState();
   const [guessedWords, setGuessedWords] = useState([{ wordId: 0, letters: createBlankLetterRow(5) }]);
   const [numberOfCompleteGuessedWords, setNumberOfCompleteGuessedWords] = useState(0);
   const [error, setError] = useState({});
   const [results, setResults] = useState([]);
 
+  const rowsContainer = useRef(null);
   const backButton = useRef(null);
   const nextButton = useRef(null);
   const resetButton = useRef(null);
@@ -99,6 +101,9 @@ const Home = () => {
     const areWordsComplete = noIncompleteWords();
 
     if (areWordsComplete) {
+      if (rowsContainer.current) {
+        setGridHeight(rowsContainer.current.scrollHeight);
+      }
       const stepChange = isNextButton ? 1 : -1;
       setStep(step + stepChange);
     }
@@ -136,7 +141,9 @@ const Home = () => {
             <div className="col">
               {
                 step === 0 &&
-                <>
+                <div
+                  ref={rowsContainer}
+                  className="content">
                   <h2 className="mt-0">
                     Step 1: Which words have you tried so far?
                   </h2>
@@ -149,12 +156,13 @@ const Home = () => {
                     addRow={addNewGuessedWord}
                     removeRow={removeGuessedWord}
                     error={error}/>
-                </>
+                </div>
               }
               {
                 step > 0 &&
-                <>
-
+                <div
+                  className="content"
+                  style={{ height: gridHeight ? `${gridHeight}px` : null }}>
                   <h2 className="mt-0">
                     Step 2: Tap/click the letters you know are in the answer
                   </h2>
@@ -165,7 +173,7 @@ const Home = () => {
                   <GuessedWords
                     guessedWords={guessedWords}
                     editPosition={editPosition}/>
-                </>
+                </div>
               }
               <div className="d-flex mt-4">
                 {
