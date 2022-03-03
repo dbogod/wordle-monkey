@@ -1,0 +1,37 @@
+﻿.letterInput {
+  border: 2px solid var(--colour-text);
+}
+
+.letterClickable,
+.letterInput {
+  height: 3rem;
+  max-width: 3rem;
+}
+
+.letterClickable,
+.letterInput {
+  font-size: 1.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--colour-text);
+  background: transparent;
+}
+
+.letterClickable {
+  width: 3rem;
+
+  &Absent {
+    color: #fff;
+    background-color: var(--colour-wordle-absent);
+  }
+
+  &Present {
+    color: #fff;
+    background-color: var(--colour-wordle-present);
+  }
+
+  &Correct {
+    color: #fff;
+    background-color: var(--colour-wordle-correct);
+  }
+}

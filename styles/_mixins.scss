@@ -1,0 +1,11 @@
+﻿@mixin nonTouchScreenOnly {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+@mixin touchScreenOnly {
+  @media (hover: none), (pointer: coarse) {
+    @content;
+  }
+}

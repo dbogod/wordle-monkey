@@ -1,4 +1,5 @@
-﻿import LettersRow from "./LettersRow";
+﻿import LettersRow from './LettersRow';
+import styles from '../styles/Buttons.module.scss';
 
 const GuessedWords = ({ guessedWords, editWord, addRow, removeRow, editPosition, error }) => {
   return (
@@ -37,7 +38,7 @@ const GuessedWords = ({ guessedWords, editWord, addRow, removeRow, editPosition,
             <button
               type="button"
               id="add-word"
-              className="d-block mt-2 p-2 btn btn-add-word shadow"
+              className={`${styles.buttonAddWord} d-block mt-2 p-2 btn btn-add-word shadow`}
               onClick={addRow}>
               Add another word
             </button>

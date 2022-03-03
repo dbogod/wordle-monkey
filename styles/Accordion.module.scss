@@ -1,0 +1,15 @@
+﻿.accordionSection {
+  border-bottom: 1px solid var(--colour-accordion-text);
+
+  svg {
+    margin-right: 0.75rem;
+  }
+
+  button {
+    color: var(--colour-accordion-text);
+
+    &[aria-expanded="true"] svg {
+      transform: rotate(180deg);
+    }
+  }
+}

@@ -1,4 +1,6 @@
-﻿const LetterClickable = ({ value, status, letterNumber, rowId, editPosition }) => {
+﻿import styles from '../styles/Letter.module.scss';
+
+const LetterClickable = ({ value, status, letterNumber, rowId, editPosition }) => {
   const changeHandler = e => {
     editPosition({ wordId: rowId, letter: { id: letterNumber, status: e.target.value } });
   };
@@ -20,11 +22,12 @@
   };
 
   const inputValues = ['absent', 'present', 'correct'];
+  const statusClassName = `letterClickable${status.charAt(0).toUpperCase()}${status.substr(1)}`
 
   return (
     <div className="d-inline-flex flex-column me-1">
       <button
-        className={`letter-clickable letter-clickable--${status} d-flex align-items-center justify-content-center p-0 rounded border text-center`}
+        className={`${styles.letterClickable} ${styles[statusClassName]} d-flex align-items-center justify-content-center p-0 rounded border text-center`}
         onClick={clickHandler}>
         {value}
       </button>

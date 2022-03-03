@@ -1,4 +1,5 @@
-﻿import { useRef } from "react";
+﻿import { useRef } from 'react';
+import styles from '../styles/Letter.module.scss';
 
 const LetterInput = ({ value, letterNumber, editLetter, editWord, rowId, hidden }) => {
   const input = useRef(null);
@@ -79,7 +80,7 @@ const LetterInput = ({ value, letterNumber, editLetter, editWord, rowId, hidden 
         autoComplete="off"
         pattern="^[a-zA-Z]?$"
         hidden={hidden}
-        className="p-0 rounded text-center"
+        className={`${styles.letterInput} p-0 rounded text-center`}
         onChange={changeHandler}
         onKeyUp={keyUpHandler}
       />

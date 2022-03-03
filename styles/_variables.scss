@@ -15,6 +15,7 @@
   --height-header: 3.625rem;
   --height-footer: 2.5rem;
   --min-height-main: calc(100vh - var(--height-footer) - var(--height-header));
+  --font-weight-light: $font-weight-light;
 }
 
 [data-hi-contrast="true"] {
