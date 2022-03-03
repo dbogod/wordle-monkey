@@ -14,6 +14,7 @@ const Header = ({setIsSettingsOpen}) => {
               type="button"
               className="btn-icon p-0 bg-transparent border-0 position-absolute end-0"
               onClick={() => setIsSettingsOpen(true)}>
+              <span className="visually-hidden">Settings</span>
               <FaCog className={styles.cog}/>
             </button>
           </div>
