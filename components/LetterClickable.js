@@ -22,7 +22,7 @@ const LetterClickable = ({ value, status, letterNumber, rowId, editPosition }) =
   };
 
   const inputValues = ['absent', 'present', 'correct'];
-  const statusClassName = `letterClickable${status.charAt(0).toUpperCase()}${status.substr(1)}`
+  const statusClassName = `letterClickable${status.charAt(0).toUpperCase()}${status.substr(1)}`;
 
   return (
     <div className="d-inline-flex flex-column me-1">
