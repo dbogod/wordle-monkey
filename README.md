@@ -18,13 +18,13 @@ Wordle Monkey is a helpful - and accessible - Wordle assistant, built in NextJS.
 <p>
   <img src="https://user-images.githubusercontent.com/45694422/156741046-50ef1087-09c4-4a48-b286-98fe19917f09.png" 
        alt="Black screen with white writing and letter input fields" 
-       height="500"/>
+       width="250"/>
   &nbsp;
   <img src="https://user-images.githubusercontent.com/45694422/156741198-80fc8752-4288-418a-a240-fc4ffb8582af.png" 
        alt="Black screen with white writing and letter tiles. Some tiles are black (indicating letter is not in answer word), some yellow (letter is present in answer word), some green (letter is present in answer word, and is in the right position)" 
-       height="500"/>
+       width="250"/>
   &nbsp;
   <img src="https://user-images.githubusercontent.com/45694422/156741386-8638ae83-4145-4fda-9708-92b07741d3a1.png" 
        alt="Black screen with white writing, coloured letter tiles and results accordion containing three expandable items: Letters, Possible Words, Number of Words. Number of Words is expanded, revealing the text 'There are 5 possible words'" 
-       height="500"/>
+       width="250"/>
 </p>
