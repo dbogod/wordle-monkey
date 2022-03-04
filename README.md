@@ -30,4 +30,4 @@ Wordle Monkey is a helpful - and accessible - Wordle assistant, built in NextJS.
 </p>
 
 ## Support
-❤️ the monkey? [Buy the grinder a coffee!](https://ko-fi.com/bogod)
+❤️ the monkey? [Buy the organ grinder a coffee!](https://ko-fi.com/bogod)
