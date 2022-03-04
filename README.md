@@ -14,7 +14,7 @@ Wordle Monkey is a helpful - and accessible - Wordle assistant, built in NextJS.
   - All remaining possible words
   - The _number_ of remaining possible words
 
-## How it looks
+## What it looks like
 <p>
   <img src="https://user-images.githubusercontent.com/45694422/156741046-50ef1087-09c4-4a48-b286-98fe19917f09.png" 
        alt="Black screen with white writing and letter input fields" 
