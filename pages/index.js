@@ -85,7 +85,10 @@ const Home = () => {
   const removeGuessedWord = id => {
     const updatedGuessedWordsList = guessedWords.filter(guessedWord => guessedWord.wordId !== id);
     setGuessedWords(updatedGuessedWordsList);
-    updateNumberOfCompletedGuessedWords(updatedGuessedWordsList);
+    const rowsWithNoBlanks = updateNumberOfCompletedGuessedWords(updatedGuessedWordsList);
+    if (rowsWithNoBlanks.length === updatedGuessedWordsList.length) {
+      setError({ ...error, rowLength: false });
+    }
   };
 
   const clickHandler = async e => {
