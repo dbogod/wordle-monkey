@@ -33,10 +33,10 @@ const Footer = ({ isSettingsOpen }) => {
             &nbsp; | &nbsp;
             <a
               href="https://ko-fi.com/bogod"
-              aria-labelledby="github-link-desc"
+              aria-labelledby="ko-fi-link-desc"
               title="Buy me a coffee!">
                 <span
-                  id="github-link-desc"
+                  id="ko-fi-link-desc"
                   className="visually-hidden">
                   Like the monkey? Buy the organ grinder a coffee!
                 </span>
