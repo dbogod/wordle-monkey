@@ -28,3 +28,6 @@ Wordle Monkey is a helpful - and accessible - Wordle assistant, built in NextJS.
        alt="Black screen with white writing, coloured letter tiles and results accordion containing three expandable items: Letters, Possible Words, Number of Words. Number of Words is expanded, revealing the text 'There are 5 possible words'" 
        width="250"/>
 </p>
+
+## Support
+❤️ the monkey? [Buy the grinder a coffee!](https://ko-fi.com/bogod)
