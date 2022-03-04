@@ -1,0 +1,12 @@
+﻿.buttonPrimary,
+.buttonLight,
+.buttonAddWord {
+  min-width: 5rem;
+}
+
+.buttonRemoveWord {
+  height: 3rem;
+  max-width: 3rem;
+  font-weight: var(--font-weight-light);
+  font-size: 1.75rem;
+}

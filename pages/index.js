@@ -2,6 +2,8 @@ import { useState, useRef } from 'react';
 
 import GuessedWords from '../components/GuessedWords';
 import Results from '../components/Results';
+import styles from '../styles/Buttons.module.scss';
+
 import { createBlankLetterRow, createDataObj, generateResults } from '../components/utilities/helpers';
 
 const Home = () => {
@@ -83,7 +85,10 @@ const Home = () => {
   const removeGuessedWord = id => {
     const updatedGuessedWordsList = guessedWords.filter(guessedWord => guessedWord.wordId !== id);
     setGuessedWords(updatedGuessedWordsList);
-    updateNumberOfCompletedGuessedWords(updatedGuessedWordsList);
+    const rowsWithNoBlanks = updateNumberOfCompletedGuessedWords(updatedGuessedWordsList);
+    if (rowsWithNoBlanks.length === updatedGuessedWordsList.length) {
+      setError({ ...error, rowLength: false });
+    }
   };
 
   const clickHandler = async e => {
@@ -182,7 +187,7 @@ const Home = () => {
                     ref={backButton}
                     type="button"
                     id="button-back"
-                    className="d-inline-block mt-2 me-2 p-2 btn btn-light shadow"
+                    className={`${styles.buttonLight} d-inline-block mt-2 me-2 p-2 btn btn-light shadow`}
                     onClick={clickHandler}>
                     Back
                   </button>
@@ -190,7 +195,7 @@ const Home = () => {
                 <button
                   ref={step < 2 ? nextButton : resetButton}
                   type="button"
-                  className="d-inline-block mt-2 p-2 btn btn-primary shadow"
+                  className={`${styles.buttonPrimary} d-inline-block mt-2 p-2 btn btn-primary shadow`}
                   onClick={step < 2 ? clickHandler : resetHandler}>
                   {
                     step === 1 ?

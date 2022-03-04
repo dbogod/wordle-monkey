@@ -1,4 +1,6 @@
-﻿.footer {
+﻿@import "mixins";
+
+.footer {
   display: flex;
   align-items: center;
   height: var(--height-footer);
@@ -16,7 +18,13 @@
   color: var(--footer-icon-link);
   transition: 100ms ease-out;
 
-  &:hover {
+  &:active {
     color: var(--footer-icon-link-hover);
+  }
+
+  @include nonTouchScreenOnly {
+    &:hover {
+      color: var(--footer-icon-link-hover);
+    }
   }
 }

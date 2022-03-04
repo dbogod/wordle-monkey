@@ -1,6 +1,8 @@
 ﻿import LetterInput from "./LetterInput";
 import LetterClickable from "./LetterClickable";
 
+import styles from '../styles/Buttons.module.scss';
+
 const LettersRow = ({ letters, editLetter, editPosition, editWord, removeRow, rowId }) => {
   return (
     <>
@@ -37,7 +39,7 @@ const LettersRow = ({ letters, editLetter, editPosition, editWord, removeRow, ro
             rowId > 0 && removeRow &&
             <button
               type="button"
-              className="btn btn-remove-word shadow align-self-center w-100 d-flex align-items-center justify-content-center"
+              className={`${styles.buttonRemoveWord} btn btn-remove-word shadow align-self-center w-100 d-flex align-items-center justify-content-center`}
               aria-label="Remove this word row"
               title="Remove this word row"
               onClick={() => removeRow(rowId)}>
