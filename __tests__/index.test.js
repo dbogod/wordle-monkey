@@ -1,15 +1,14 @@
-﻿import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
+﻿import '@testing-library/jest-dom';
+import { render, screen } from '@testing-library/react';
+
 import Home from '../pages/index';
 
 describe('Home', () => {
-  it('renders a heading', () => {
-    render(<Home />)
 
-    const heading = screen.getByRole('heading', {
-      name: 'Wordle Monkey',
-    })
+  test('renders intro text', () => {
+    render(<Home />);
 
-    expect(heading).toBeInTheDocument()
-  })
-})
+    const introTextElement = screen.getByText(/Wordle Monkey to the rescue!/);
+    expect(introTextElement).toBeInTheDocument();
+  });
+});

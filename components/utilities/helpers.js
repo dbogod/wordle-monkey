@@ -1,13 +1,14 @@
 ﻿import { POSSIBLE_ANSWERS } from "./possibleAnswers";
 
-export const sortArray = (arr) => {
+export const convertObjToSortedArray = obj => {
   let sorted = [];
-  for (const entry in arr) {
-    sorted.push([entry, arr[entry]]);
+  for (const entry in obj) {
+    sorted.push([entry, obj[entry]]);
   }
   sorted.sort(function (a, b) {
     return b[1] - a[1];
   });
+
   return sorted;
 };
 
@@ -127,10 +128,10 @@ export const generateResults = async (data, wordsArr = POSSIBLE_ANSWERS) => {
 
   const regex = new RegExp(regexString, 'i');
 
-  const absentLettersArr = absentLetters.map(({letter}) => letter);
+  const absentLettersArr = absentLetters.map(({ letter }) => letter);
   const confLettersRegexes = [];
   for (const [letter, count] of Object.entries(confLetterCount)) {
-    confLettersRegexes.push({count, letter, regex: new RegExp(letter, 'gi')});
+    confLettersRegexes.push({ count, letter, regex: new RegExp(letter, 'gi') });
   }
 
   const filteredAnswers = wordsArr.filter(word => {
@@ -167,7 +168,7 @@ export const generateResults = async (data, wordsArr = POSSIBLE_ANSWERS) => {
     }
   });
 
-  letterScores = sortArray(letterScores);
+  letterScores = convertObjToSortedArray(letterScores);
 
   return {
     filteredAnswers,
