@@ -1,0 +1,27 @@
+﻿.settings {
+  background-color: var(--colour-bg);
+  animation: slide-up 100ms ease-in-out forwards;
+}
+
+.close {
+  color: var(--icon-colour-settings);
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.settingsItem {
+  border-bottom: 1px solid var(--colour-keyline);
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(2rem);
+    height: calc(100vh - 2rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+    height: 100vh;
+  }
+}

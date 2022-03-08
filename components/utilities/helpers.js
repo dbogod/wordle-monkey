@@ -83,12 +83,22 @@ export const generateResults = async (data, wordsArr = POSSIBLE_ANSWERS) => {
 
   // Add ABSENT information
   if (absentLetters.length > 0) {
-    const absentLettersString = [...absentLetters].map(({ letter }) => letter).join('');
-    for (const [key, value] of Object.entries(wordInfo)) {
-      if (value.is === '') {
-        wordInfo[key].isNot = absentLettersString;
+    const presentLettersArr = [...presentLetters].map(({ letter }) => letter);
+
+    absentLetters.forEach(absentLetter => {
+      // Check absent letter is not also marked as 'present'
+      if (!presentLettersArr.some(presentLetter => presentLetter === absentLetter.letter)) {
+        for (let i = 0; i < Object.keys(wordInfo).length; i++) {
+          const wordInfoChar = wordInfo[`char-${i}`];
+          if (wordInfoChar.is === '') {
+            wordInfoChar.isNot += absentLetter.letter;
+          }
+        }
+      } else {
+        // Mark letter absent for that char position only
+        wordInfo[`char-${absentLetter.id}`].isNot += absentLetter.letter;
       }
-    }
+    });
   }
 
   // Add PRESENT information
@@ -114,9 +124,31 @@ export const generateResults = async (data, wordsArr = POSSIBLE_ANSWERS) => {
     regexString += str;
   });
   regexString += '$';
+
   const regex = new RegExp(regexString, 'i');
 
-  const filteredAnswers = wordsArr.filter(word => regex.test(word));
+  const absentLettersArr = absentLetters.map(({letter}) => letter);
+  const confLettersRegexes = [];
+  for (const [letter, count] of Object.entries(confLetterCount)) {
+    confLettersRegexes.push({count, letter, regex: new RegExp(letter, 'gi')});
+  }
+
+  const filteredAnswers = wordsArr.filter(word => {
+    const passesMainRegex = regex.test(word);
+    let passesCharCount = true;
+
+    if (passesMainRegex && confLettersRegexes.length > 0) {
+      confLettersRegexes.forEach(confLetter => {
+        const letterIsMarkedAbsent = absentLettersArr.length > 0 && absentLettersArr.includes(confLetter.letter);
+        // If letter is marked ABSENT and PRESENT, then we know more about the number of occurrences
+        if (letterIsMarkedAbsent && word.match(confLetter.regex).length !== confLetter.count) {
+          passesCharCount = false;
+        }
+      });
+    }
+
+    return passesMainRegex && passesCharCount;
+  });
 
   let letterScores = {};
   filteredAnswers.forEach(word => {
@@ -142,4 +174,3 @@ export const generateResults = async (data, wordsArr = POSSIBLE_ANSWERS) => {
     letterScores
   };
 };
-

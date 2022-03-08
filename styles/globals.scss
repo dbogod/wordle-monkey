@@ -1,20 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap');
 
-:root {
-  --colour-bg: #121213;
-  --colour-text: #d4ccda;
-  --color-accordion-text: #fff;
-  --colour-wordle-correct: #538d4e;
-  --colour-wordle-absent: #3a3a3c;
-  --colour-wordle-present: #b59f3b;
-}
-
-.colour-blind {
-  --colour-wordle-correct: #f5793a;
-  --colour-wordle-present: #85c0f9;
-}
-
-:is(a, button, input, textarea, summary) {
+:is(a, button, input, label, textarea, summary) {
   --outline-size: max(2px, 0.08em);
   --outline-style: solid;
   --outline-color: orange;
@@ -42,7 +28,7 @@ body {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 1.75rem;
 }
 
 h2 {
@@ -54,91 +40,30 @@ h2 {
   font-weight: 600;
 }
 
-dt,
-dd {
-  display: inline-block;
+a {
+  transition: 100ms ease-out;
 }
 
-dt {
-  text-transform: uppercase;
+main {
+  min-height: var(--min-height-main);
 }
 
-button:not(.letter-clickable):not(.btn-remove-word ) {
-  min-width: 5rem;
-
-  &:active {
-    box-shadow: none !important;
-  }
+button:active {
+  box-shadow: none !important;
 }
 
-.wordle,
-.letter-clickable,
-input[type="text"],
-.btn-remove-word {
-  height: 3rem;
-  max-width: 3rem;
+.content {
+  animation: slideIn 500ms ease-out;
 }
 
-.wordle,
-.letter-clickable,
-input[type="text"] {
-  font-size: 1.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: var(--colour-text);
-  background: transparent;
-}
-
-.btn-remove-word {
-  font-weight: $font-weight-light;
-  font-size: 1.75rem;
-}
-
-.letter-clickable {
-  width: 3rem;
-
-  &--present {
-    background-color: var(--colour-wordle-present);
+@keyframes slideIn {
+  0% {
+    transform: translateX(-1rem);
+    opacity: 0;
   }
 
-  &--correct {
-    background-color: var(--colour-wordle-correct);
-  }
-}
-
-
-.wordle {
-  height: 2rem;
-  width: 2rem;
-  background-color: var(--colour-wordle-absent);
-
-  &--correct {
-    background-color: var(--colour-wordle-correct);
-  }
-}
-
-fieldset > div {
-  max-width: 250px;
-}
-
-h2 {
-  margin-top: 2rem;
-}
-
-[data-tried-word] {
-  margin-top: 0.5rem;
-}
-
-.accordion-section {
-  svg {
-    margin-right: 0.75rem;
-  }
-
-  button {
-    color: var(--color-accordion-text);
-
-    &[aria-expanded="true"] svg {
-      transform: rotate(180deg);
-    }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
   }
 }

@@ -1,4 +1,5 @@
-﻿import LettersRow from "./LettersRow";
+﻿import LettersRow from './LettersRow';
+import styles from '../styles/Buttons.module.scss';
 
 const GuessedWords = ({ guessedWords, editWord, addRow, removeRow, editPosition, error }) => {
   return (
@@ -8,7 +9,7 @@ const GuessedWords = ({ guessedWords, editWord, addRow, removeRow, editPosition,
         <div className="row">
           <div className="col">
             <div
-              className="d-inline-block mb-2 p-2 bg-white text-danger"
+              className="d-inline-block mb-2 p-2 bg-white border border-danger text-danger"
               role="alert">
               <h3 className="mb-0">
                 Error
@@ -37,7 +38,7 @@ const GuessedWords = ({ guessedWords, editWord, addRow, removeRow, editPosition,
             <button
               type="button"
               id="add-word"
-              className="d-block mt-2 p-2 btn btn-add-word shadow"
+              className={`${styles.buttonAddWord} d-block mt-2 p-2 btn btn-add-word shadow`}
               onClick={addRow}>
               Add another word
             </button>

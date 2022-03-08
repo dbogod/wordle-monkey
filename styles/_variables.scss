@@ -1,4 +1,37 @@
-﻿$wm-colours: (
+﻿:root {
+  --colour-bg: #121213;
+  --colour-text: #d4ccda;
+  --colour-accordion-text: #fff;
+  --colour-wordle-correct: #538d4e;
+  --colour-wordle-absent: #3a3a3c;
+  --colour-wordle-present: #b59f3b;
+  --toggle-bg-colour-on: var(--colour-wordle-correct);
+  --toggle-bg-colour-off: #a9a9a9;
+  --toggle-switch-colour: #fff;
+  --icon-colour-settings: #fff;
+  --colour-keyline: #3a3a3c;
+  --footer-icon-link: var(--colour-text);
+  --footer-icon-link-hover: #ffff00;
+  --height-header: 3.625rem;
+  --height-footer: 2.5rem;
+  --min-height-main: calc(100vh - var(--height-footer) - var(--height-header));
+  --font-weight-light: $font-weight-light;
+}
+
+[data-hi-contrast="true"] {
+  --colour-wordle-correct: #f5793a;
+  --colour-wordle-present: #85c0f9;
+}
+
+[data-theme="light"] {
+  --colour-bg: #fff;
+  --colour-text: #000;
+  --colour-accordion-text: #000;
+  --icon-colour-settings: #000;
+  --footer-icon-link-hover: var(--colour-wordle-correct);
+}
+
+$wm-colours: (
   "add-word": #e1be6a,
   "remove-word": #40b0a6
 );
@@ -39,4 +72,8 @@ $spacers: (
   30: ($spacer * 7.5),
   31: ($spacer * 7.75),
   32: ($spacer * 8)
+);
+
+$container-max-widths: (
+  sm: 540px
 );

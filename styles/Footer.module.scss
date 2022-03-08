@@ -1,0 +1,30 @@
+﻿@import "mixins";
+
+.footer {
+  display: flex;
+  align-items: center;
+  height: var(--height-footer);
+  border-top: 1px solid var(--colour-keyline);
+}
+
+.footerContent {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.iconLink,
+.iconLink:visited {
+  color: var(--footer-icon-link);
+  transition: 100ms ease-out;
+
+  &:active {
+    color: var(--footer-icon-link-hover);
+  }
+
+  @include nonTouchScreenOnly {
+    &:hover {
+      color: var(--footer-icon-link-hover);
+    }
+  }
+}

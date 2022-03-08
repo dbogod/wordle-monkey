@@ -1,0 +1,18 @@
+﻿.header {
+  display: flex;
+  align-items: center;
+  height: var(--height-header);
+  border-bottom: 1px solid var(--colour-keyline);
+}
+
+.headerContent {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.cog {
+  color: var(--icon-colour-settings);
+  width: 1rem;
+  height: 1rem;
+}

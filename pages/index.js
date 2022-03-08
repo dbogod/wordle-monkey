@@ -1,16 +1,20 @@
-import { useState, useRef } from "react";
+import { useState, useRef } from 'react';
 
-import GuessedWords from "../components/GuessedWords";
+import GuessedWords from '../components/GuessedWords';
 import Results from '../components/Results';
+import styles from '../styles/Buttons.module.scss';
+
 import { createBlankLetterRow, createDataObj, generateResults } from '../components/utilities/helpers';
 
 const Home = () => {
   const [step, setStep] = useState(0);
+  const [gridHeight, setGridHeight] = useState();
   const [guessedWords, setGuessedWords] = useState([{ wordId: 0, letters: createBlankLetterRow(5) }]);
   const [numberOfCompleteGuessedWords, setNumberOfCompleteGuessedWords] = useState(0);
   const [error, setError] = useState({});
   const [results, setResults] = useState([]);
 
+  const rowsContainer = useRef(null);
   const backButton = useRef(null);
   const nextButton = useRef(null);
   const resetButton = useRef(null);
@@ -45,8 +49,13 @@ const Home = () => {
     editedGuessedWords.forEach(guessedWord => {
       if (guessedWord.wordId === word.wordId) {
         guessedWord.letters.forEach(guessedLetter => {
-          if (guessedLetter.id === word.letters[0].id) {
-            guessedLetter.letter = word.letters[0].letter;
+          const { id, letter } = word.letters[0];
+          if (guessedLetter.id === id && guessedLetter.letter !== letter) {
+            guessedLetter.letter = letter;
+
+            guessedWord.letters.forEach(guessedLetter => {
+              guessedLetter.status = 'absent';
+            });
           }
         });
       }
@@ -76,7 +85,10 @@ const Home = () => {
   const removeGuessedWord = id => {
     const updatedGuessedWordsList = guessedWords.filter(guessedWord => guessedWord.wordId !== id);
     setGuessedWords(updatedGuessedWordsList);
-    updateNumberOfCompletedGuessedWords(updatedGuessedWordsList);
+    const rowsWithNoBlanks = updateNumberOfCompletedGuessedWords(updatedGuessedWordsList);
+    if (rowsWithNoBlanks.length === updatedGuessedWordsList.length) {
+      setError({ ...error, rowLength: false });
+    }
   };
 
   const clickHandler = async e => {
@@ -94,6 +106,9 @@ const Home = () => {
     const areWordsComplete = noIncompleteWords();
 
     if (areWordsComplete) {
+      if (rowsContainer.current) {
+        setGridHeight(rowsContainer.current.scrollHeight);
+      }
       const stepChange = isNextButton ? 1 : -1;
       setStep(step + stepChange);
     }
@@ -110,13 +125,10 @@ const Home = () => {
   };
 
   return (
-    <main className="mb-5">
-      <section className="container mt-4">
+    <>
+      <section className="container pt-4">
         <div className="row">
           <div className="col">
-            <h1>
-              Wordle Monkey
-            </h1>
             <p>
               Playing Wordle? Guessed one or more letters?
               <br/>
@@ -128,13 +140,15 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="container mt-4">
+      <section className="container pt-4">
         <form onSubmit={e => e.preventDefault()}>
           <div className="row">
             <div className="col">
               {
                 step === 0 &&
-                <>
+                <div
+                  ref={rowsContainer}
+                  className="content">
                   <h2 className="mt-0">
                     Step 1: Which words have you tried so far?
                   </h2>
@@ -147,12 +161,13 @@ const Home = () => {
                     addRow={addNewGuessedWord}
                     removeRow={removeGuessedWord}
                     error={error}/>
-                </>
+                </div>
               }
               {
-                step === 1 &&
-                <>
-
+                step > 0 &&
+                <div
+                  className="content"
+                  style={{ height: gridHeight ? `${gridHeight}px` : null }}>
                   <h2 className="mt-0">
                     Step 2: Tap/click the letters you know are in the answer
                   </h2>
@@ -163,7 +178,7 @@ const Home = () => {
                   <GuessedWords
                     guessedWords={guessedWords}
                     editPosition={editPosition}/>
-                </>
+                </div>
               }
               <div className="d-flex mt-4">
                 {
@@ -172,7 +187,7 @@ const Home = () => {
                     ref={backButton}
                     type="button"
                     id="button-back"
-                    className="d-inline-block mt-2 me-2 p-2 btn btn-light shadow"
+                    className={`${styles.buttonLight} d-inline-block mt-2 me-2 p-2 btn btn-light shadow`}
                     onClick={clickHandler}>
                     Back
                   </button>
@@ -180,7 +195,7 @@ const Home = () => {
                 <button
                   ref={step < 2 ? nextButton : resetButton}
                   type="button"
-                  className="d-inline-block mt-2 p-2 btn btn-primary shadow"
+                  className={`${styles.buttonPrimary} d-inline-block mt-2 p-2 btn btn-primary shadow`}
                   onClick={step < 2 ? clickHandler : resetHandler}>
                   {
                     step === 1 ?
@@ -200,8 +215,7 @@ const Home = () => {
             data={results}/>
         }
       </section>
-    </main>
-
+    </>
   );
 };
 
