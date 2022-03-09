@@ -1,0 +1,13 @@
+﻿name: run-tests
+on: pull_request
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: install
+      - uses: borales/actions-yarn@2.3.0
+        with:
+          cmd: test
