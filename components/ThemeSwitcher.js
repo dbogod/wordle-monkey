@@ -1,6 +1,6 @@
 ﻿import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
-import Toggle from "./Toggle";
+import Toggle from './Toggle';
 
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);

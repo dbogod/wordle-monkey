@@ -1,5 +1,5 @@
-﻿import LetterInput from "./LetterInput";
-import LetterClickable from "./LetterClickable";
+﻿import LetterInput from './LetterInput';
+import LetterClickable from './LetterClickable';
 
 import styles from '../styles/Buttons.module.scss';
 

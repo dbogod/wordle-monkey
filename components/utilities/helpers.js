@@ -1,4 +1,4 @@
-﻿import { POSSIBLE_ANSWERS } from "./possibleAnswers";
+﻿import { POSSIBLE_ANSWERS } from './possibleAnswers';
 
 export const convertObjToSortedArray = obj => {
   let sorted = [];

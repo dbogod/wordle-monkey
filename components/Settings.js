@@ -1,6 +1,6 @@
-﻿import ThemeSwitcher from "./ThemeSwitcher";
-import ContrastSwitcher from "./ContrastSwitcher";
-import { IoClose } from "react-icons/io5";
+﻿import ThemeSwitcher from './ThemeSwitcher';
+import ContrastSwitcher from './ContrastSwitcher';
+import { IoClose } from 'react-icons/io5';
 import settingsStyles from '../styles/Settings.module.scss';
 import headerStyles from '../styles/Header.module.scss';
 
