@@ -1,5 +1,5 @@
 ﻿import styles from '../styles/Footer.module.scss';
-import { BsTwitter, BsGithub } from 'react-icons/bs';
+import { BsTwitter, BsGithub, BsMastodon} from 'react-icons/bs';
 import { BiCoffeeTogo } from 'react-icons/bi';
 
 const Footer = ({ isSettingsOpen }) => {
@@ -8,7 +8,16 @@ const Footer = ({ isSettingsOpen }) => {
       <footer className={`${styles.footer} ${isSettingsOpen ? 'position-absolute bottom-0' : ''} w-100`}>
         <div className="container">
           <div className={`${styles.footerContent} py-1`}>
-
+          <a
+             rel="me" href="https://mastodon.social/@bogod">
+                <span
+                  id="twitter-link-desc"
+                  className="visually-hidden">
+                Follow me on Mastodon
+              </span>
+              <BsMastodon className={styles.iconLink}/>
+            </a>
+            &nbsp; | &nbsp;
             <a
               href="https://twitter.com/bogod"
               aria-labelledby="twitter-link-desc">
