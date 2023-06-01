@@ -48,7 +48,7 @@ const Results = ({ data }) => {
                       {
                         i === 0 &&
                         <span>
-                    &nbsp; possible words
+                    &nbsp; possible {item[1] === 1 ? 'word' : 'words'}
                   </span>
                       }
                     </dd>
