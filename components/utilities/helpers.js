@@ -163,7 +163,7 @@ export const generateResults = async (data, wordsArr = POSSIBLE_ANSWERS) => {
 
     if (unknownLetters.length > 0) {
       // Remove duplicate letters so that we only count it once per word
-      const unknownLettersNoDuplicates = new Set(unknownLetters.split(''))
+      const unknownLettersNoDuplicates = new Set(unknownLetters.split(''));
       unknownLettersNoDuplicates.forEach(unknownLetter => {
         letterScores[unknownLetter] = (letterScores[unknownLetter] || 0) + 1;
       });
