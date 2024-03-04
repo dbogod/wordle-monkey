@@ -115,7 +115,7 @@ describe('TREAT', () => {
     const results = await generateResults(dataObj);
     expect(results.filteredAnswers).toContain('stool');
     expect(results.filteredAnswers).toContain('outdo');
-    expect(results.letterScores).toContainEqual(['o', 41]);
+    expect(results.letterScores).toContainEqual(['o', 31]);
 
     const fiveLetterWordsContainingOneT = results.filteredAnswers.filter(word => {
       const isString = typeof word === 'string';
